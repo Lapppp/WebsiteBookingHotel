@@ -1,0 +1,80 @@
+.hotel{
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.1),0 2px 6px 2px rgba(60,64,67,.15);
+  background-color: #f8f9fa;
+}
+.amenities-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.amenity-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+  text-align: center;
+}
+
+.amenity-box i {
+  margin-right: 5px;
+}
+.room{
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.1),0 2px 6px 2px rgba(60,64,67,.15);
+  background-color: #f8f9fa;
+}
+
+
+.dates-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.check-in, .check-out {
+  flex: 1;
+  text-align: center;
+}
+
+.divider {
+  width: 1px;
+  height: 100%;
+  background-color: #151515;
+
+  margin: 0 20px;
+}
+
+label {
+  font-weight: bold;
+}
+.line {
+  border-bottom: 1px solid #5e5a5a; /* Creates a solid line at the bottom */
+  /* You can customize the line further with color, width, etc. */
+}
+.input-group .btn {
+  padding: 0.75rem 0.375rem; /* Adjust padding as needed */
+}
+
+.input-group-text {
+  margin-left: 10px;
+  border-left: none;
+}
+.is-invalid .form-control {
+  border-color: red;
+}
+
+.is-invalid .form-label,
+.is-invalid small {
+  color: red;
+}

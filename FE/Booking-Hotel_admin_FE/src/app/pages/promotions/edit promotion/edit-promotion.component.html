@@ -1,0 +1,119 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Chỉnh Sửa Khuyến Mãi
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-percent"> </i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Khuyến Mãi </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Chỉnh Sửa Khuyến Mãi
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="editPromotion" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="title">Tiêu Đề</label>
+                                    <input type="text" class="form-control" id="title" formControlName="title"
+                                        placeholder="Tiêu đề" required />
+                                    <div *ngIf="editPromotion.get('title').invalid && editPromotion.get('title').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập tiêu đề.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="discount">Giảm Giá</label>
+                                    <input type="number" class="form-control" id="discount" formControlName="discount"
+                                        placeholder="Giảm giá" required />
+                                    <div *ngIf="editPromotion.get('discount').invalid && editPromotion.get('discount').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập giảm giá.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="couponCode">Mã Giảm Giá</label>
+                                    <input type="text" class="form-control" id="couponCode" formControlName="couponCode"
+                                        placeholder="Mã giảm giá" required />
+                                    <div *ngIf="editPromotion.get('couponCode').invalid && editPromotion.get('couponCode').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập mã giảm giá.
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô Tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Mô tả" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="startDate">Ngày Bắt Đầu</label>
+                                    <input type="datetime-local" class="form-control" id="startDate"
+                                        formControlName="startDate" placeholder="Ngày bắt đầu" required />
+                                    <div *ngIf="editPromotion.get('startDate').invalid && editPromotion.get('startDate').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn ngày bắt đầu.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="status">Trạng Thái</label>
+                                    <select class="form-control" id="status" formControlName="status" required>
+                                        <option value="Hoạt động">Hoạt động</option>
+                                        <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                                    </select>
+                                    <div *ngIf="editPromotion.get('status').invalid && editPromotion.get('status').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn trạng thái.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="endDate">Ngày Kết Thúc</label>
+                                    <input type="datetime-local" class="form-control" id="endDate"
+                                        formControlName="endDate" placeholder="Ngày kết thúc" required />
+                                    <div *ngIf="editPromotion.get('endDate').invalid && editPromotion.get('endDate').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn ngày kết thúc.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="hotels">Khách Sạn:</label>
+                                    <select id="hotels" class="form-control" formControlName="hotelID"
+                                        (change)="onSelectHotel($event)">
+                                        <option value="" disabled>Chọn một khách sạn</option>
+                                        <option *ngFor="let hotel of hotels" [value]="hotel.id">{{ hotel.name }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="editPromotion.get('hotelID').invalid && editPromotion.get('hotelID').touched"
+                                        class="text-danger mt-2">
+                                        Bạn phải chọn một khách sạn.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Sửa</button>
+                        <button class="btn btn-secondary" type="button" (click)="onCancel()">Hủy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

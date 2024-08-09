@@ -1,0 +1,39 @@
+<div class="register-container">
+  <div class="register-image">
+    <img src="assets/images/background_login.png" alt="Register Image">
+  </div>
+  <div class="register-content">
+    <div class="register-form">
+      <h3>Chào mừng !</h3>
+      <p>Đăng ký</p>
+      <p class="mb-4">Hệ thống khách sạn LH chào mừng bạn</p>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="form-group mb-3">
+          <label for="userName">Tên đăng nhập</label>
+          <input id="userName" type="text" class="form-control" formControlName="userName" placeholder="Nhập tên đăng nhập">
+        </div>
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input id="email" type="email" class="form-control" formControlName="email" placeholder="Nhập Email">
+        </div>
+        <div class="form-group mb-3">
+          <label for="phone">Số điện thoại</label>
+          <input id="phone" type="text" class="form-control" formControlName="phone" placeholder="Số điện thoại">
+        </div>
+        <div class="form-group mb-3">
+          <label for="password">Mật khẩu</label>
+          <input id="password" type="password" class="form-control" formControlName="password" placeholder="Mật khẩu">
+        </div>
+        <div class="form-group mb-3">
+          <label for="confirmPassword">Nhập lại mật khẩu</label>
+          <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu">
+        </div>
+        <button type="submit" class="btn btn-dark w-100 mb-3">Đăng ký</button>
+      </form>
+
+      <p class="text-center mt-3">
+        Bạn đã có tài khoản? <a [routerLink]="['/login']">Đăng nhập</a>
+      </p>
+    </div>
+  </div>
+</div>

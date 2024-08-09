@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Hiu\u0027\\Desktop\\\u0110ATN\\Phase 4\\Booking-hotel\\BE\\Booking-Hotel_BE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hiu\u0027\\Desktop\\\u0110ATN\\Phase 4\\Booking-hotel\\BE\\Booking-Hotel_BE\\Booking-Hotel\\Migrations\\20240521182041_Init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Booking-Hotel\\Migrations\\20240521182041_Init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20240521182041_Init.cs",
+              "DocumentMoniker": "C:\\Users\\Hiu\u0027\\Desktop\\\u0110ATN\\Phase 4\\Booking-hotel\\BE\\Booking-Hotel_BE\\Booking-Hotel\\Migrations\\20240521182041_Init.cs",
+              "RelativeDocumentMoniker": "Booking-Hotel\\Migrations\\20240521182041_Init.cs",
+              "ToolTip": "C:\\Users\\Hiu\u0027\\Desktop\\\u0110ATN\\Phase 4\\Booking-hotel\\BE\\Booking-Hotel_BE\\Booking-Hotel\\Migrations\\20240521182041_Init.cs",
+              "RelativeToolTip": "Booking-Hotel\\Migrations\\20240521182041_Init.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T18:20:41.374Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

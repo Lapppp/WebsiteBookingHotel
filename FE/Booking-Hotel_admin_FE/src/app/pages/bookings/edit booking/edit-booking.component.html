@@ -1,0 +1,115 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">Chỉnh sửa Đặt phòng</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-money-bills"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Đặt phòng</a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">Chỉnh sửa Đặt phòng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="editBooking" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="checkInDate">Ngày nhận phòng</label>
+                                    <input type="datetime-local" class="form-control" id="checkInDate"
+                                        [value]="Booking?.checkInDate | date:'yyyy-MM-ddTHH:mm'" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="checkOutDate">Ngày trả phòng</label>
+                                    <input type="datetime-local" class="form-control" id="checkOutDate"
+                                        [value]="Booking?.checkOutDate | date:'yyyy-MM-ddTHH:mm'" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="userName">Tên người dùng</label>
+                                    <input type="text" class="form-control" id="userName" [value]="Booking?.userName"
+                                        readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="bookedRooms">Số phòng đã đặt</label>
+                                    <input type="number" class="form-control" id="bookedRooms"
+                                        formControlName="bookedRooms" placeholder="Số phòng đã đặt" required />
+                                    <div *ngIf="editBooking.get('bookedRooms').invalid && editBooking.get('bookedRooms').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập số lượng phòng đã đặt.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="status">Trạng thái</label>
+                                    <select class="form-control" id="status" formControlName="status" required>
+                                        <option value="Đã xác nhận">Đã xác nhận</option>
+                                        <option value="Đã huỷ">Đã hủy</option>
+                                    </select>
+                                    <div *ngIf="editBooking.get('status').invalid && editBooking.get('status').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn một trạng thái.
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="form-control-label" for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" [value]="Booking?.email" readonly />
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="bookingHistories">Lịch sử Đặt phòng</label>
+                                    <ul>
+                                        <li *ngFor="let history of Booking?.bookingHistories">
+                                            {{ history.status }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="invoices">Hóa đơn</label>
+                                    <div *ngFor="let invoice of Booking?.invoices">
+                                        <p><strong>Mã:</strong> {{ invoice.id }}</p>
+                                        <p><strong>Net:</strong> {{ invoice.net | currency }}</p>
+                                        <p><strong>Ngày:</strong> {{ invoice.date | date }}</p>
+                                        <p><strong>Tổng:</strong> {{ invoice.total | currency }}</p>
+                                        <p><strong>Thuế:</strong> {{ invoice.tax | currency }}</p>
+                                        <p><strong>Hạn thanh toán:</strong> {{ invoice.dueDate | date }}</p>
+                                        <p><strong>Giảm giá:</strong> {{ invoice.discount | currency }}</p>
+                                        <p><strong>Loại tiền tệ:</strong> {{ invoice.currency }}</p>
+                                        <p><strong>Trạng thái:</strong> {{ invoice.status }}</p>
+                                        <h3>Chi tiết Hóa đơn</h3>
+                                        <ul>
+                                            <li *ngFor="let detail of invoice.invoiceDetails">
+                                                <p><strong>Số:</strong> {{ detail.id }}</p>
+                                                <p><strong>Đơn giá:</strong> {{ detail.unitPrice | currency }}</p>
+                                                <p><strong>Ngày dịch vụ:</strong> {{ detail.serviceDate | date }}</p>
+                                                <p><strong>Mô tả:</strong> {{ detail.description }}</p>
+                                                <p><strong>Số tiền:</strong> {{ detail.amount | currency }}</p>
+                                                <p><strong>Số lượng:</strong> {{ detail.quantity }}</p>
+                                                <p><strong>Giảm giá:</strong> {{ detail.discount | currency }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Sửa</button>
+                        <button class="btn btn-secondary" type="button" (click)="onCancel()">Hủy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+ <!-- START FEATURES -->
+ <section class="section" id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mt-4 pt-2" *ngFor="let hotel of limitedHotels">
+          <div class="card work-container work-primary work-modern rounded border-0 overflow-hidden">
+            <div class="card-body p-0">
+              <img [src]="hotel.images[0]" class="img-fluid rounded" alt="work-image">
+              <div class="content">
+                <a href="javascript:void(0)" class="title text-white title-dark pb-2 border-bottom">{{ hotel.name }}</a>
+                <ul class="post-meta mb-0 mt-2 text-white title-dark list-unstyled">
+                  <li class="list-inline-item me-3"><i class="uil uil-bed-double me-2"></i>{{ hotel.amenities[0] }}</li>
+                  <!-- Add more amenities or details here -->
+                </ul>
+                <p class="text-white title-dark d-block mb-0">Rent <span class="text-success">${{ hotel.price[0] }}</span> /Night</p>
+              </div>
+              <div class="position-absolute top-0 end-0 m-3 z-index-1">
+                <a href="" class="btn btn-primary btn-pills btn-sm btn-icon"><i data-feather="chevron-right" class="fea icon-sm title-dark"></i></a>
+              </div>
+            </div>
+          </div>
+        </div><!--end col-->
+      </div><!--end row-->
+
+    </div>
+    <!--end container-->
+</section>
+<!-- END FEATURES -->
+
+

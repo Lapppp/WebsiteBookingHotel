@@ -1,0 +1,139 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 pt-6">
+      <div class="card-body hotel" *ngIf="hotel">
+        <div class=" my-3">
+          <h5>{{ hotel.name }}</h5>
+          <span class="color fw-normal mb-2 "><i
+            class="bi-geo-alt"></i> {{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</span>
+          <div class="amenities-container">
+            <div *ngFor="let amenitie of amenities" class="amenity-box">
+              <i class="{{ amenitie.icon }}"></i> {{ amenitie.name }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="card-body room">
+        <h5>Chi tiết đặt phòng của bạn</h5>
+        <div class="dates-container">
+          <div class="check-in">
+            <label for="check-in-date">Ngày nhận phòng:</label>
+            <span id="check-in-date">{{ getFormattedDate(checkInDate) }}</span>
+          </div>
+          <div class="divider"></div>
+          <div class="check-out">
+            <label for="check-out-date">Ngày trả phòng:</label>
+            <span id="check-out-date">{{ getFormattedDate(checkOutDate) }}</span>
+          </div>
+        </div>
+        <div class="mt-3">
+          <h6>Tổng số ngày ở: {{ numberOfDays }}</h6>
+
+        </div>
+        <div class="line mt-3"></div>
+        <div class="mt-3"><span>bạn đã chọn: </span>{{ roomType }} - {{ sizeRoom }} - Phòng  </div>
+        <button type="button" class="btn btn-link" (click)="togglePromoCodeInput()">Bạn có mã khuyến mãi?</button>
+        <div *ngIf="showPromoCodeInput">
+          <div class="booking__form-inputgroup">
+            <label class="form-label">Mã khuyến mãi</label>
+            <div class="input-group">
+              <input type="text" class="form-control col-md-8" [(ngModel)]="promoCode"
+                     placeholder="Nhập mã khuyến mãi"/>
+              <button type="button" class="btn btn-primary input-group-text col-md-4" (click)="checkPromoCode()">kiểm tra
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p *ngIf="promoMessage">{{ promoMessage }}</p>
+
+        <h5>Giá: {{ totalPrice | currency:'VND ' }}</h5>
+        <div *ngIf="nameDiscoud">
+          <p>Giá chưa giảm: {{ totalPrice | currency:'VNĐ ' }}</p>
+          <p>Số tiền tiết kiệm được: {{ savings | currency:'VNĐ ' }}</p>
+          <div class="line"></div>
+          <h4>Giá cuối cùng: {{ finalPrice | currency:'VNĐ ' }}</h4>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-xl-8 col-lg-7 pt-6">
+      <div class="card-body hotel">
+        <h5 class="mt-4 mb-3">Nhập thông tin chi tiết của bạn</h5>
+        <form [formGroup]="editUser" (ngSubmit)="onSubmit()">
+          <div>
+            <div *ngIf="!isLoggedIn" class="col-12">
+              <div class="alert alert-warning" role="alert">
+                Bạn muốn <a routerLink="/login">đăng nhập</a> hoặc <a routerLink="/login">đăng ký</a>?
+              </div>
+            </div>
+            <div *ngIf="bookingSuccess" class="alert alert-success" role="alert">
+              Đặt phòng thành công! Bạn sẽ được chuyển hướng về lịch sử đặt phòng sau 3 giây.
+            </div>
+            <div class="row justify-content-center g-4">
+              <div class="col-md-6">
+                <div class="booking__form-inputgroup" [ngClass]="{'is-invalid': isSubmitted && editUser.get('name')?.invalid}">
+                  <label class="form-label">Họ và tên</label>
+                  <div class="booking__form-input">
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Họ và tên"/>
+                  </div>
+                  <div *ngIf="isSubmitted && editUser.get('name')?.invalid">
+                    <small *ngIf="editUser.get('name')?.errors?.['required']">Tên là bắt buộc</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="booking__form-inputgroup">
+                  <label class="form-label">Số điện thoại</label>
+                  <div class="booking__form-input">
+                    <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Số điện thoại liên lạc"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="booking__form-inputgroup" [ngClass]="{'is-invalid': isSubmitted && editUser.get('email')?.invalid}">
+                  <label class="form-label">Email</label>
+                  <div class="booking__form-input">
+                    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Nhập Email" required/>
+                    <div *ngIf="isSubmitted && editUser.get('email')?.invalid">
+                      <small *ngIf="editUser.get('email')?.errors?.['required']">Email là bắt buộc</small>
+                      <small *ngIf="editUser.get('email')?.errors?.['email']">Email không hợp lệ</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="booking__form-inputgroup">
+                  <label class="form-label">Ghi chú cho khách sạn</label>
+                  <div class="booking__form-input">
+                    <textarea class="form-control textarea" formControlName="note" placeholder="Viết yêu cầu khác cho khách sạn"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="booking__form-inputgroup" [ngClass]="{'is-invalid': isSubmitted && editUser.get('paymentId')?.invalid}">
+                  <label class="form-label">Phương thức thanh toán</label>
+                  <select id="paymentId" formControlName="paymentId" class="form-control">
+                    <option value="" disabled selected>Chọn phương thức thanh toán</option>
+                    <option *ngFor="let payment of payments" [value]="payment.id">{{ payment.name }}</option>
+                  </select>
+                  <div *ngIf="isSubmitted && editUser.get('paymentId')?.invalid">
+                    <small *ngIf="editUser.get('paymentId')?.errors?.['required']">Vui lòng chọn phương thức thanh toán</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-dark w-100 mb-3">Đặt thoai</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

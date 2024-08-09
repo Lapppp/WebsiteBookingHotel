@@ -1,0 +1,127 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Tất Cả Khuyến Mãi
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-percent"> </i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Khuyến Mãi </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Tất Cả Khuyến Mãi
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="dataTables_wrapper py-4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_length" id="datatable_length">
+                                        <label>
+                                            Hiển Thị
+                                            <select name="datatable_length" aria-controls="datatable"
+                                                class="form-control form-control-sm" (change)="entriesChange($event)">
+                                                <option value="10" [selected]="entries == 10">10</option>
+                                                <option value="25" [selected]="entries == 25">25</option>
+                                                <option value="50" [selected]="entries == 50">50</option>
+                                                <option value="-1" [selected]="entries == -1">Tất cả</option>
+                                            </select>
+                                            dòng
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="datatable_filter" class="dataTables_filter">
+                                        <label>
+                                            <input type="search" class="form-control form-control-sm"
+                                                placeholder="Tìm kiếm bản ghi" aria-controls="datatable"
+                                                (keyup)="filterTable($event)" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'"
+                                [headerHeight]="'auto'" [footerHeight]="'auto'" [rowHeight]="'auto'"
+                                [limit]="entries != -1 ? entries : undefined" [scrollbarH]="true" [rows]="temp"
+                                (activate)="onActivate($event)">
+                                <ngx-datatable-column name="ID" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.id }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Tiêu Đề" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.title }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Khách Sạn" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.hotelName }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Trạng Thái" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.status }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Chức năng">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        <button class="btn btn-sm btn-info" (click)="viewDetails(row)">Chi Tiết</button>
+                                        <button class="btn btn-sm btn-warning" (click)="editPromotion(row.id)">Chỉnh
+                                            Sửa</button>
+                                        <button *ngIf="row.status !== 'Ngừng hoạt động'" class="btn btn-sm btn-danger"
+                                            (click)="confirmDeletePromotion(row.id)">Xóa</button>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" #detailModal id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="detailModalLabel">Chi Tiết Khuyến Mãi</h2>
+                <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <p><strong>Giảm Giá:</strong> {{ selectedPromotion?.discount }}</p>
+                <p><strong>Mã Giảm Giá:</strong> {{ selectedPromotion?.couponCode }}</p>
+                <p><strong>Ngày Bắt Đầu:</strong> {{ selectedPromotion?.startDate }}</p>
+                <p><strong>Ngày Kết Thúc:</strong> {{ selectedPromotion?.endDate }}</p>
+                <p><strong>Mô Tả:</strong> {{ selectedPromotion?.description }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .enlarge {
+        font-size: 16px;
+        /* Căn chỉnh theo nhu cầu */
+    }
+</style>

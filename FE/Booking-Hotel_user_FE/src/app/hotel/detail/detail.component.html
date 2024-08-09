@@ -1,0 +1,266 @@
+<section class="section-two bg-light" id="detailhotel">
+  <div class="container">
+    <div class="col-lg-12">
+      <form class="card p-4 shadow rounded" (ngSubmit)="filterTable()">
+        <h4 class="mb-3">Tìm kiếm phòng ngay !</h4>
+        <div class="row text-start">
+          <div class="col-lg-3 col-md-6">
+            <div class="mb-3 mb-lg-0">
+              <label class="form-label"> Ngày nhận phòng : </label>
+              <input type="date" id="checkIn" class="form-control start" [(ngModel)]="checkInDate" name="checkInDate"
+                     [min]="minCheckInDate" placeholder="Select date :" (change)="onCheckInChange()">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="mb-3 mb-lg-0">
+              <label class="form-label"> Ngày trả phòng : </label>
+              <input type="date" class="form-control end" [(ngModel)]="checkOutDate" name="checkOutDate"
+                     placeholder="Select date :" [min]="minCheckOutDate" (change)="onCheckOutChange()">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="mb-3 mb-lg-0 position-relative">
+              <label class="form-label">Số người ở / Số phòng: </label>
+              <div class="form-control dropdown-toggle" (click)="toggleDropdown()">
+                {{ adults }}  Người lớn, {{ sizeRoom }} Số phòng
+              </div>
+
+              <div class="dropdown-menu p-2 custom-width" [class.show]="dropdownOpen">
+                <div class="row p-2">
+                  <div class="col-md-12 d-flex align-items-center mb-2">
+                    <label class="mr-2">Số Phòng</label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark Rooms" (click)="decrement('sizeRoom')">-
+                      </button>
+                      <input type="number" [(ngModel)]="sizeRoom" class="count latest mx-1" name="Rooms" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark Rooms" (click)="increment('sizeRoom')">+
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 d-flex align-items-center">
+                    <label class="mr-2">Số Người </label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark" (click)="decrement('adults')">-</button>
+                      <input type="number" [(ngModel)]="adults" class="count latest mx-1" name="Adults" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark" (click)="increment('adults')">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3 mb-lg-0">
+                  <label class="form-label">Nơi bạn muốn đến : </label>
+                  <input type="text" id="address" required class="form-control"
+                         [(ngModel)]="destination" name="destination" placeholder="Nơi bạn muốn đến :"
+                         [ngClass]="{'border-danger': destination.trim() === '' && isSubmitted}" #destinationInput>
+                  <div *ngIf="destination.trim() === '' && isSubmitted" class="text-danger">Nơi bạn muốn đến không được
+                    để trống
+                  </div>
+                </div>
+                <!--                  <label class="form-label">Nơi bạn muốn đến : </label>-->
+                <!--                  <input type="text" id="address" required class="form-control" [(ngModel)]="destination" name="destination" placeholder="Nơi bạn muốn đến :"-->
+                <!--                         [ngClass]="{'border-danger': destination.trim() === '' && isSubmitted}" #destinationInput>-->
+                <!--                  <div *ngIf="destination.trim() === '' && isSubmitted" class="text-danger">Nơi bạn muốn đến không được để trống</div>-->
+
+                <!--                </div>-->
+              </div>
+
+              <div class="col-md-6 mt-lg-4 pt-2">
+                <button type="submit" class="btn btn-dark w-100 mb-3">Tìm kiếm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-two bg-light" id="detailhotels">
+  <div class="container">
+    <div class="row">
+      <!-- Filter Sidebar -->
+      <div class="col-lg-3">
+        <div class="card p-4 shadow rounded mb-4">
+          <h4 class="mb-3">Lọc dữ liệu</h4>
+          <!-- Price Range Filter -->
+          <div class="mb-3">
+            <h1 class="form-label">Giá</h1>
+            <input type="range" class="form-range" min="0" max="1000000" name="priceRange">
+            <div class="d-flex justify-content-between">
+              <span>0 VND</span>
+              <span></span>
+            </div>
+          </div>
+
+          <!-- Star Rating Filter --> <!-- Star Rating Filter -->
+          <div class="mb-3">
+            <label class="form-label">Tiện nghi</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="wifi"
+                     value="wifi">
+              <label class="form-check-label" for="wifi">Miễn phí Wi-Fi</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="Hồ bơi"
+                     value="Hồ bơi">
+              <label class="form-check-label" for="Hồ bơi">Hồ bơi</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="đỗ xe"
+                     value="đỗ xe">
+              <label class="form-check-label" for="đỗ xe">Có chỗ đỗ xe</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="spa"
+                     value="spa">
+              <label class="form-check-label" for="spa">Spa</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Số sao</label>
+            <div class="form-check">
+              <input class="form-check-input" name="flexRadioDefault" type="checkbox" id="star1"
+                     [checked]="selectedStar === 1" (change)="filterByStar(1)">
+              <label class="form-check-label" for="star1">1 <i class="uil uil-star"></i></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="flexCheckboxDefault" type="checkbox" id="star2"
+                     [checked]="selectedStar === 2" (change)="filterByStar(2)">
+              <label class="form-check-label " for="star2">2 <i class="uil uil-star"></i></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="flexCheckboxDefault" type="checkbox" id="star3"
+                     [checked]="selectedStar === 3" (change)="filterByStar(3)">
+              <label class="form-check-label" for="star3">3 <i class="uil uil-star"></i></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="flexCheckboxDefault" type="checkbox" id="star4"
+                     [checked]="selectedStar === 4" (change)="filterByStar(4)">
+              <label class="form-check-label" for="star4">4 <i class="uil uil-star"></i></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" name="flexCheckboxDefault" type="checkbox" id="star5"
+                     [checked]="selectedStar === 5" (change)="filterByStar(5)">
+              <label class="form-check-label" for="star5">5 <i class="uil uil-star"></i></label>
+            </div>
+          </div>
+
+          <!-- Apply Filters Button -->
+          <!--          <button type="button" class="btn btn-dark w-100" (click)="filterTable()">Áp dụng các bộ lọc</button>-->
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9">
+
+
+        <div id="content">
+          <div class="content-wraps">
+            <div class="row gx-5 col-mb-80">
+              <main class="col-lg-12 order-lg-last">
+
+                <div id="posts" class="row pt-5 content-wrap gutter-40 mb-0" *ngFor="let hotel of hotels">
+
+                  <div class="entry col-12">
+                    <div class="grid-inner row">
+                      <div class="col-lg-4" *ngFor="let image of hotel.images">
+                        <img class="box-img shadow-left" [src]="image.url" alt="Image">
+                        <button *ngIf="isInWishlist(hotel.id)" (click)="deleteFromWishlist(hotel.id)"
+                                class="btn btn-secondary btn-wishlist-done">
+                          <i class="fas fa-bookmark wishlist-done"></i>
+                        </button>
+                        <button *ngIf="!isInWishlist(hotel.id)" (click)="addToWishlist(hotel.id)" class="btn btn-secondary wishlist-button">
+                          <i class="uil uil-bookmark" ></i>
+
+                        </button>
+                      </div>
+
+                      <div class="col-lg col-md-8 mt-5 mt-lg-0">
+                        <div class="entry-title title-sm">
+                          <h2><a routerLink="/room/{{hotel.id}}">{{ hotel.name }}</a></h2>
+                          <h6>{{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</h6>
+                          <div *ngIf="averageRatingByHotel[hotel.id] !== undefined">
+                            <small>Số sao: {{ getAverageRating(hotel.id) }}</small>
+<!--                            <ng-container *ngFor="let star of generateStars(hotel.id)">-->
+
+<!--                            </ng-container>-->
+                            <ng-container *ngFor="let star of generateStars(hotel.id)">
+                              <span *ngIf="star === 1" class="uil uil-star checked"></span>
+                              <span *ngIf="star === 0.5" class="uil uil-star-half checked"></span>
+                            </ng-container>
+
+                          </div>
+                        </div>
+                        <div class="entry-meta">
+                          <ul *ngFor="let roomType of roomTypesByHotel[hotel.id]">
+                            <ng-container *ngIf="roomType">
+                              <li><i class=""></i><a routerLink="/room/{{hotel.id}}">{{ roomType.name }}</a></li>
+                              <li><i class=""></i><a routerLink="/room/{{hotel.id}}">{{ roomType.description }}</a></li>
+                            </ng-container>
+                          </ul>
+                          <ul class="room-details ">
+                            <h6>có phòng dành cho:</h6>
+                            <span *ngFor="let room of roomsByHotel[hotel.id]">
+              <ng-container *ngIf="room.capacity === 1">
+                <i class="uil uil-user uil-lg"></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 2">
+                <i class="uil uil-users-alt "></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 3">
+                <i class="uil uil-users-alt"></i>
+                <i class="uil uil-user"></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 4">
+                <i class="uil uil-users-alt"></i>
+                <i class="uil uil-users-alt"></i>
+              </ng-container>
+            </span>
+                          </ul>
+                        </div>
+                        <div class="entry-content">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-auto col-md-4 mt-5 mt-lg-0 text-start text-md-center">
+                        <ng-container *ngIf="roomsByHotel[hotel.id] && roomsByHotel[hotel.id].length > 0">
+                          <small><em>Giá chỉ từ*</em></small><br>
+                          <div class="hotel-price">
+                            <i class=""> {{ getRoomPrice(hotel.id) | currency :'VND ' }}</i>
+                          </div>
+
+                          <button [routerLink]="['/room', hotel.id]" class="btn btn-primary mt-4 mx-0">Xem chi tiết
+                          </button>
+                        </ng-container>
+                        <ng-container *ngIf="!roomsByHotel[hotel.id] || roomsByHotel[hotel.id]?.length === 0">
+                          <div>No available rooms</div>
+                        </ng-container>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

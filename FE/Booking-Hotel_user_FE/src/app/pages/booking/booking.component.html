@@ -1,0 +1,211 @@
+<!--<div class="container mt-5">-->
+<!--  <h1>Booking History</h1>-->
+<!--  <div class="table-responsive">-->
+<!--    <div class="card">-->
+<!--      <div *ngIf="!isLoggedIn" class="col-12">-->
+<!--        <div class="" role="alert">-->
+<!--          <div class="alert alert-warning" role="alert">-->
+<!--            Bạn muốn <a routerLink="/login">đăng nhập</a> hoặc <a routerLink="/login">đăng ký</a> để có thể xem lịch sử-->
+<!--            đặt phòng của mình.-->
+<!--          </div>-->
+
+
+<!--          <div class="subcribe-form">-->
+<!--            <span>Bạn có thể xem lịch sử bằng email:</span>-->
+<!--            <form>-->
+<!--              <input name="email" id="email2" [(ngModel)]="checkemail" type="email"-->
+<!--                     class="form-control rounded-pill shadow" placeholder="Your email :" required>-->
+<!--              <button type="submit" class="btn btn-pills btn-primary" (click)="checkbutton()">Tìm kiếm</button>-->
+<!--              <p class="mt-3" *ngIf="mailMessage">{{ mailMessage }}</p>-->
+<!--            </form>&lt;!&ndash;end form&ndash;&gt;-->
+<!--          </div>-->
+
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-body" *ngIf="isLoggedIn">-->
+<!--        <table class="table table-bordered">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>Mã đặt phòng</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Check-In Date</th>-->
+<!--            <th>Check-Out Date</th>-->
+<!--            <th>Trạng thái</th>-->
+<!--            <th>Tổng thanh toán</th>-->
+<!--            <th>Note cho khách sạn</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let booking of Bookings">-->
+<!--            <td>{{ booking.id }}</td>-->
+<!--            <td>{{ booking.mail }}</td>-->
+<!--            <td>{{ booking.checkInDate }}</td>-->
+<!--            <td>{{ booking.checkOutDate }}</td>-->
+<!--            <td>-->
+<!--&lt;!&ndash;              chờ duyệt&ndash;&gt;-->
+<!--              <ng-container *ngIf="booking.status === 'đã xác nhận'">-->
+<!--                {{ booking.status }} <button class="btn btn-pills btn-danger" (click)="changestatus('đã huỷ', booking.id)">Huỷ</button>-->
+<!--              </ng-container>-->
+<!--              <ng-container *ngIf="booking.status === 'đã hoàn thành'">-->
+<!--                {{ booking.status }}-->
+<!--                <button  class="btn btn-icon btn-dark mt-2" [routerLink]="['/page/review']">-->
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star icons"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>-->
+<!--              </ng-container>-->
+<!--              <ng-container *ngIf="booking.status === 'đang sử dụng'">-->
+<!--                {{ booking.status }}-->
+<!--              </ng-container><ng-container *ngIf="booking.status === 'đã huỷ'">-->
+<!--                {{ booking.status }}-->
+<!--              </ng-container>-->
+<!--            </td>-->
+
+<!--            <td>{{ booking.totalPrice }}</td>-->
+<!--            <td>{{ booking.note }}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!-- booking.component.html -->
+<div class="container mt-5">
+  <h1>Lịch sử đặt phòng</h1>
+  <div class="table-responsive">
+    <div class="card">
+
+
+      <div *ngIf="!isLogin" class="col-12">
+        <div class="alert alert-warning" role="alert">
+          Bạn phải <button (click)="onLoginClick()" class="btn btn-primary" >đăng nhập</button> hoặc <button class="btn btn-primary"  (click)="onRegisterClick()" >đăng ký</button> để có thể đánh giá
+        </div>
+
+      </div>
+
+      <div class="filter-container" *ngIf="isLogin">
+        <label for="statusFilter">Lọc theo trạng thái:</label>
+        <select id="statusFilter" (change)="onStatusChange($event)">
+          <option value="all">Tất cả</option>
+          <option value="đã huỷ">Đã huỷ</option>
+          <option value="đã hoàn thành">Đã hoàn thành</option>
+          <option value="đã xác nhận">Đã xác nhận</option>
+        </select>
+      </div>
+
+
+      <div class="card-body" *ngIf="isLoggedIn">
+        <div class="card-body">
+
+          <div class="booking row" *ngFor="let booking of Bookings">
+
+            <!-- Chi tiết đặt phòng -->
+            <div class="col-xl-4 col-lg-4 pt-4 border-box  pt-6">
+              <h5>Chi tiết đặt phòng</h5>
+              <p><strong>Mã đặt phòng:</strong> {{ booking.id }}</p>
+              <p><strong>Email đặt phòng:</strong> {{ booking.email }}</p>
+              <p><strong>Người nhận:</strong> {{ booking.userName }}</p>
+              <div class="status">
+                <p>Trạng thái:
+                  <span>
+                <ng-container *ngIf="booking.status === 'đã xác nhận'">
+                  {{ booking.status }}
+                  {{ booking.status }} <button class="btn btn-pills btn-danger" (click)="changestatus( booking.id)">Huỷ</button>
+                </ng-container>
+                    <!--                <ng-container *ngIf="booking.status === 'đã hoàn thành'">-->
+                    <!--                  {{ booking.status }}-->
+                    <!--                  <button *ngIf="!hasReviewed(booking.id) "-->
+                    <!--                          (click)="confirmreview(booking.id)"-->
+                    <!--                          class="btn btn-icon btn-info mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"-->
+                    <!--                                                                  height="24" viewBox="0 0 24 24" fill="none"-->
+                    <!--                                                                  stroke="currentColor" stroke-width="2"-->
+                    <!--                                                                  stroke-linecap="round" stroke-linejoin="round"-->
+                    <!--                                                                  class="feather feather-star icons"><polygon-->
+                    <!--                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>-->
+                    <!--                  &lt;!&ndash;                          (click)="navigateToReview(booking.id)"&ndash;&gt;-->
+                    <!--                  <a *ngIf="hasReviewed(booking.id)" [routerLink]="['/room', booking.hotelId]">Xem đánh giá</a>-->
+                    <!--                </ng-container>-->
+                    <ng-container *ngIf="booking.status === 'đã hoàn thành'">
+  {{ booking.status }}
+                      <button  *ngIf="!hasReviewed(booking.id) " class="btn btn-icon btn-info mt-2" (click)="openReviewModal(booking.id,booking.hotelId)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         class="feather feather-star icons">
+      <polygon
+        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </svg>
+  </button>
+                       <a *ngIf="hasReviewed(booking.id)" [routerLink]="['/room', booking.hotelId]">Xem đánh giá</a>
+</ng-container>
+                <ng-container *ngIf="booking.status === 'đang sử dụng'">
+                  {{ booking.status }}
+                </ng-container>
+                <ng-container *ngIf="booking.status === 'đã huỷ'">
+                  {{ booking.status }}
+                </ng-container>
+              </span>
+                </p>
+                <p>
+                  <span>Được đặt:  {{getTimeAgo(booking.createdAt)}}</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Chi tiết khách sạn -->
+            <div class="col-xl-4 col-lg-4 pt-4 border-box ">
+              <h5>Chi tiết khách sạn</h5>
+
+              <div *ngIf="hotelDetails[booking.hotelId]">
+                <p><strong>Tên khách sạn:</strong> {{ hotelDetails[booking.hotelId].name }}</p>
+                <p><strong>Địa chỉ:</strong> {{ hotelDetails[booking.hotelId].address }}</p>
+                <!-- Các chi tiết khác của khách sạn -->
+              </div>
+              <div class="dates-container">
+                <div class="check-in">
+                  <label for="check-in-date">Ngày nhận phòng:</label>
+                  <span id="check-in-date">{{ getFormattedDate(booking.checkInDate) }}</span>
+                </div>
+                <div class="divider"></div>
+                <div class="check-out">
+                  <label for="check-out-date">Ngày trả phòng:</label>
+                  <span id="check-out-date">{{ getFormattedDate(booking.checkOutDate) }}</span>
+                </div>
+              </div>
+              <div class="note-container mt-3">
+                <label>Ghi chú cho khách sạn:</label>
+                <p>{{ booking.note }}</p>
+              </div>
+            </div>
+
+            <!-- Chi tiết thanh toán -->
+            <div class="col-xl-4 col-lg-4 pt-4 border-box">
+              <h5>Chi tiết thanh toán</h5>
+              <div class="payment-details">
+                <div class="total-price">
+                  <label>Tổng tiền:</label>
+                  {{ booking.totalPrice }}
+
+                                <div >
+                                  <p>Mã ưu đãi: {{booking.couponCode }}</p>
+                                  <p>Tiền phòng: {{booking.totalPrice}} VND</p>
+                                  <p>Ưu đãi: {{booking.commission}} VND</p>
+                                  <p>Tổng phải thanh toán: {{ booking.moneyReceived }} VND</p>
+                                  <p>Thanh toán: {{booking.statusPayment}}</p>
+                                </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="col-xl-auto col-lg-12 pt-6">
+
+  </div>
+</div>

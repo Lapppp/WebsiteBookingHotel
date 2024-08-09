@@ -1,0 +1,81 @@
+<!-- START NAVBAR -->
+<nav id="navbar" class="navbar navbar-expand-lg fixed-top sticky">
+  <div class="container navbar-container">
+    <div class="navbar-brand-container">
+      <a class="navbar-brand" href="#">LH Hotel</a>
+      <span class="navbar-tagline">Lập và Hiểu thành lập</span>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            (click)="toggleMenu()" aria-label="Toggle navigation">
+      <i class="mdi mdi-menu text-muted"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="navbar-navList">
+        <li class="nav-item">
+          <a [routerLink]="['/']" class="nav-link" [ngClass]="{'active':curentsection === 'home'}"
+             href="javascript:void(0);">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/detail']" class="nav-link" [ngClass]="{'active':curentsection === 'features'}"
+             href="javascript:void(0);">Khách sạn</a>
+        </li>
+
+        <li class="nav-item">
+          <!-- Sử dụng trong template HTML của bạn -->
+          <a [ngxScrollTo]="'#footer'" class="nav-link" [ngClass]="{'active': curentsection === 'footer'}"
+             href="javascript:void(0);">Liên hệ</a>
+
+        </li>
+
+        <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+          <li *ngIf="!authService.isAuthenticated()" class="dropdown " dropdown placement="bottom-right">
+            <a class="nav-link pr-0 " role="button" dropdownToggle>
+              <div class="media align-items-center">
+
+                <div class="media-body">
+                  <span class=" font-weight-bold uil-user-circle"></span>
+                </div>
+              </div>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
+              *dropdownMenu
+            >
+              <a routerLink="/login" class="   dropdown-item">Đăng nhập</a>
+              <a routerLink="/register" class="dropdown-item">Đăng ký</a>
+              <a routerLink="/page/booking" class="dropdown-item">Lịch sử đặt phòng</a>
+              <a routerLink="/forgot-password" class="dropdown-item">Quên mật khẩu</a>
+            </div>
+          </li>
+          <li *ngIf="authService.isAuthenticated()" class="dropdown" dropdown placement="bottom-right">
+            <a class="nav-link pr-0 " role="button" dropdownToggle>
+              <div class="media align-items-center">
+
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm font-weight-bold">{{ currentUser.userName }}</span>
+                </div>
+              </div>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
+              *dropdownMenu
+            >
+
+              <a routerLinkActive="active" [routerLink]="['/page/booking']" class="dropdown-item">
+                <i class="ni ni-calendar-grid-58"></i> <span>Lịch sử đặt phòng</span>
+              </a><a routerLinkActive="active" [routerLink]="['/page/wishlist']" class="dropdown-item">
+              <i class="ni ni-calendar-grid-58"></i> <span>Khách sạn yêu thích</span>
+            </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="logout()">
+                <i class="ni ni-user-run"></i> <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+

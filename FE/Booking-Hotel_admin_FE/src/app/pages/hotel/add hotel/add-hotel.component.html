@@ -1,0 +1,157 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Thêm Khách Sạn
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-hotel"> </i> </a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Khách Sạn </a>
+                            </li>
+
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Thêm khách sạn
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="addHotel" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">Tên</label>
+                                    <input type="text" class="form-control" id="name" formControlName="name"
+                                        placeholder="Tên" required />
+                                    <div *ngIf="addHotel.get('name').invalid && addHotel.get('name').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống tên khách sạn.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="address">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="address" formControlName="address"
+                                        placeholder="Địa chỉ" required />
+                                    <div *ngIf="addHotel.get('address').invalid && addHotel.get('address').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống địa chỉ.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="city">Thành phố</label>
+                                    <input type="text" class="form-control" id="city" formControlName="city"
+                                        placeholder="Thành phố" required />
+                                    <div *ngIf="addHotel.get('city').invalid && addHotel.get('city').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống thành phố.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="country">Quốc gia</label>
+                                    <input type="text" class="form-control" id="country" formControlName="country"
+                                        placeholder="Quốc gia" required />
+                                    <div *ngIf="addHotel.get('country').invalid && addHotel.get('country').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống quốc gia.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Mô tả" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="totalRooms">Tổng số phòng</label>
+                                    <input type="number" class="form-control" id="totalRooms"
+                                        formControlName="totalRooms" placeholder="Tổng số phòng" required />
+                                    <div *ngIf="addHotel.get('totalRooms').invalid && addHotel.get('totalRooms').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống tổng số phòng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="policy">Chính sách</label>
+                                    <input type="text" class="form-control" id="policy" formControlName="policy"
+                                        placeholder="Chính sách" required />
+                                    <div *ngIf="addHotel.get('policy').invalid && addHotel.get('policy').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống chính sách.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="contact">Liên hệ</label>
+                                    <input type="text" class="form-control" id="contact" formControlName="contact"
+                                        placeholder="Liên hệ" required />
+                                    <div *ngIf="addHotel.get('contact').invalid && addHotel.get('contact').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống thông tin liên hệ.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="checkIn">Nhận phòng</label>
+                                    <input type="datetime-local" class="form-control" id="checkIn"
+                                        formControlName="checkIn" placeholder="Thời gian nhận phòng" required />
+                                    <div *ngIf="addHotel.get('checkIn').invalid && addHotel.get('checkIn').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống thời gian nhận phòng.
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="form-control-label" for="status">Status</label>
+                                    <input type="text" class="form-control" id="status" formControlName="status" placeholder="Status"
+                                        required />
+                                </div> -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="checkOut">Trả phòng</label>
+                                    <input type="datetime-local" class="form-control" id="checkOut"
+                                        formControlName="checkOut" placeholder="Thời gian trả phòng" required />
+                                    <div *ngIf="addHotel.get('checkOut').invalid && addHotel.get('checkOut').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống thời gian trả phòng.
+                                    </div>
+                                </div><div class="form-group">
+                                    <label class="form-control-label" for="checkOut">Chính Sách huỷ</label>
+                                    <input type="text" class="form-control" id="cancel"
+                                        formControlName="cancel" placeholder="Thời gian trả phòng" required />
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="photos">Ảnh khách sạn</label>
+                                    <input type="file" class="form-control" id="photos"
+                                        (change)="onFileSelected($event)" multiple />
+                                    <div *ngIf="selectedFiles && selectedFiles.length > 0">
+                                        <p>Các tệp đã chọn:</p>
+                                        <ul>
+                                            <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm</button>
+                        <button class="btn btn-secondary" type="button" (click)="resetForm()">Đặt lại</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

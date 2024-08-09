@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-content">
+    <div class="login-form">
+      <h3 class="mb-3">Chào mừng!</h3>
+      <h5 class="mb-3">Đăng nhập</h5>
+      <p class="mb-4">Hệ thống khách sạn LH chào mừng bạn</p>
+      <form role="form" (ngSubmit)="login()">
+        <div class="mb-3">
+          <label >Tên đăng nhập</label>
+
+          <input type="text" [(ngModel)]="userName" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập">
+<!--          <input type="text" [(ngModel)]="userName" class="form-control" id="username" placeholder="Enter your user name">-->
+        </div>
+        <div class="mb-3">
+
+          <label  class="form-label">Mật khẩu</label>
+          <input type="password" [(ngModel)]="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu">
+        </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="rememberMe">
+          <label class="form-check-label" for="rememberMe">Ghi nhớ</label>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <a [routerLink]="['/reset-password']">Quên mật khẩu?</a>
+<!--          <a routerLink="/reset-password">Forgot Password?</a>-->
+        </div>
+        <button type="submit" class="btn btn-dark w-100 mb-3">Đăng nhập</button>
+        <div class="text-center mb-3">Hoặc tiếp tục bởi</div>
+        <div class="d-flex justify-content-between mb-3">
+          <button type="button" class="btn btn-light w-100 me-1"><i class="fab fa-facebook"></i> Facebook</button>
+          <button type="button" class="btn btn-light w-100 mx-1"><i class="fab fa-apple"></i> Apple ID</button>
+          <button type="button" class="btn btn-light w-100 ms-1"><i class="fab fa-google"></i> Google</button>
+        </div>
+        <div class="text-center">
+         Bạn chưa có tài khoản?
+          <a  [routerLink]="['/register']">Đăng ký</a>
+<!--          <a routerLink="/register">Register</a>-->
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="login-image">
+    <img src="/assets/images/background_login.png" alt="Login Illustration">
+  </div>
+</div>

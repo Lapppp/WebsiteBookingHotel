@@ -1,0 +1,33 @@
+/* CSS cho modal */
+.modal-content {
+    max-width: 100%;
+    /* Điều chỉnh chiều rộng modal nếu cần */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    max-height: 500px;
+    /* Chiều cao cố định cho modal body */
+    overflow-y: auto;
+    /* Cho phép cuộn dọc */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+    margin: 5px;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

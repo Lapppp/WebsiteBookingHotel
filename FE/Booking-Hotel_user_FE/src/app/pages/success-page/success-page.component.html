@@ -1,0 +1,32 @@
+<div class="success-container">
+  <div class="success-message">
+    <ng-container *ngIf="status === 'success'">
+      <img src="assets/images/suscesw800.jpg" alt="Success Icon" class="success-icon">
+      <h1>Thanh toán thành công</h1>
+      <p>Vui lòng kiểm tra email để xem chi tiết đơn hàng.</p>
+    </ng-container>
+    <ng-container *ngIf="status !== 'success'">
+      <img src="assets/images/false.png" alt="Success Icon" class="success-icon">
+      <h1>Thanh toán thất bại</h1>
+      <p>Xin vui lòng thử lại hoặc liên hệ với chúng tôi để được hỗ trợ.</p>
+    </ng-container>
+
+    <table class="success-details">
+      <tr>
+        <th>Mã booking</th>
+        <td>{{ bookingId }}</td>
+      </tr>
+
+
+      <tr>
+        <th>Email</th>
+        <td>{{ email }}</td>
+      </tr>
+      <tr>
+        <th>Tổng cộng</th>
+        <td>{{ totalPrice | currency: 'VND' }}</td>
+      </tr>
+    </table>
+    <button (click)="goHome()" class="btn btn-primary">Quay về trang chủ</button>
+  </div>
+</div>

@@ -1,0 +1,241 @@
+
+<section class="section-two bg-light" id="detailhotel">
+  <div class="container">
+    <div class="col-lg-12">
+      <form class="card p-4 shadow rounded" (ngSubmit)="filterTable()">
+        <h4 class="mb-3">Book Now !</h4>
+        <div class="row text-start">
+          <div class="col-lg-3 col-md-6">
+            <div class="mb-3 mb-lg-0">
+              <label class="form-label"> Check in : </label>
+              <input type="date" id="checkIn" class="form-control start" [(ngModel)]="checkInDate" name="checkInDate"
+                     [min]="minCheckInDate" placeholder="Select date :" (change)="onCheckInChange()">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="mb-3 mb-lg-0">
+              <label class="form-label"> Check out : </label>
+              <input type="date" class="form-control end" [(ngModel)]="checkOutDate" name="checkOutDate"
+                     placeholder="Select date :" [min]="minCheckOutDate" (change)="onCheckOutChange()">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="mb-3 mb-lg-0 position-relative">
+              <label class="form-label">Guests: </label>
+              <div class="form-control dropdown-toggle" (click)="toggleDropdown()">
+                {{ adults }}  Người lớn, {{ sizeRoom }} Số phòng
+              </div>
+
+              <div class="dropdown-menu p-2 custom-width" [class.show]="dropdownOpen">
+                <div class="row p-2">
+                  <div class="col-md-12 d-flex align-items-center mb-2">
+                    <label class="mr-2">Số Phòng</label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark Rooms" (click)="decrement('sizeRoom')">-
+                      </button>
+                      <input type="number" [(ngModel)]="sizeRoom" class="count latest mx-1" name="Rooms" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark Rooms" (click)="increment('sizeRoom')">+
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 d-flex align-items-center">
+                    <label class="mr-2">Số Người </label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark" (click)="decrement('adults')">-</button>
+                      <input type="number" [(ngModel)]="adults" class="count latest mx-1" name="Adults" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark" (click)="increment('adults')">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3 mb-lg-0">
+                  <label class="form-label">Nơi bạn muốn đến : </label>
+                  <input type="text" id="address" required class="form-control"
+                         [(ngModel)]="destination" name="destination" placeholder="Nơi bạn muốn đến :"
+                         [ngClass]="{'border-danger': destination.trim() === '' && isSubmitted}" #destinationInput>
+                  <div *ngIf="destination.trim() === '' && isSubmitted" class="text-danger">Nơi bạn muốn đến không được
+                    để trống
+                  </div>
+                </div>
+                <!--                  <label class="form-label">Nơi bạn muốn đến : </label>-->
+                <!--                  <input type="text" id="address" required class="form-control" [(ngModel)]="destination" name="destination" placeholder="Nơi bạn muốn đến :"-->
+                <!--                         [ngClass]="{'border-danger': destination.trim() === '' && isSubmitted}" #destinationInput>-->
+                <!--                  <div *ngIf="destination.trim() === '' && isSubmitted" class="text-danger">Nơi bạn muốn đến không được để trống</div>-->
+
+                <!--                </div>-->
+              </div>
+
+              <div class="col-md-6 mt-lg-4 pt-2">
+                <button type="submit" class="btn btn-dark w-100 mb-3">Tìm kiếm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!--  <div class="row justify-content-center">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-lg-12 col-md-6 pt-5 mt-5">-->
+<!--          <div class="content-wrap">-->
+<!--            <div class="destination-postcards">-->
+<!--              <div class="row mb-4">-->
+<!--                <div class="col-md-6 mb-4">-->
+<!--                  <a href="#" class="postcard">-->
+<!--                    <div class="postcard-inner">-->
+<!--                      <div class="postcard-title">Đà lạt</div>-->
+<!--                      <picture>-->
+<!--                        <img src="assets/images/dl.jpg" class="postcard-img" alt="Paris">-->
+<!--                      </picture>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 mb-4">-->
+<!--                  <a href="#" class="postcard">-->
+<!--                    <div class="postcard-inner">-->
+<!--                      <div class="postcard-title">Đà nẵng</div>-->
+<!--                      <picture>-->
+<!--                        <img src="assets/images/dn.jpeg" class="postcard-img" alt="Roma">-->
+<!--                      </picture>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-4 mb-4">-->
+<!--                  <a href="#" class="postcard">-->
+<!--                    <div class="postcard-inner">-->
+<!--                      <div class="postcard-title">Hồ Chí Minh</div>-->
+<!--                      <picture>-->
+<!--                        <img src="assets/images/hcm.jpg" class="postcard-img" alt="Barcelona">-->
+<!--                      </picture>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 mb-4">-->
+<!--                  <a href="#" class="postcard">-->
+<!--                    <div class="postcard-inner">-->
+<!--                      <div class="postcard-title">Hà Nội</div>-->
+<!--                      <picture>-->
+<!--                        <img src="assets/images/hnn.jpg" class="postcard-img" alt="London">-->
+<!--                      </picture>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 mb-4">-->
+<!--                  <a href="#" class="postcard">-->
+<!--                    <div class="postcard-inner">-->
+<!--                      <div class="postcard-title">Vũng tàu</div>-->
+<!--                      <picture>-->
+<!--                        <img src="assets/images/vt.jpg" class="postcard-img" alt="Madrid">-->
+<!--                      </picture>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="row justify-content-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-6 pt-5 mt-5">
+          <div class="content-wrap">
+            <div class="destination-postcards">
+              <div class="row mb-4">
+                <div class="col-md-6 mb-4">
+                  <a  class="postcard" (click)="searchByName('Đà Lạt')">
+                    <div class="postcard-inner">
+                      <div class="postcard-title">Đà Lạt</div>
+                      <picture>
+                        <img src="assets/images/dl.jpg" class="postcard-img" alt="Đà Lạt">
+                      </picture>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <a   class="postcard" (click)="searchByName('Đà Nẵng')">
+                    <div class="postcard-inner">
+                      <div class="postcard-title">Đà Nẵng</div>
+                      <picture>
+                        <img src="assets/images/dn.jpeg" class="postcard-img" alt="Đà Nẵng">
+                      </picture>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4">
+                  <a   class="postcard" (click)="searchByName('Hồ Chí Minh')">
+                    <div class="postcard-inner">
+                      <div class="postcard-title">Hồ Chí Minh</div>
+                      <picture>
+                        <img src="assets/images/hcm.jpg" class="postcard-img" alt="Hồ Chí Minh">
+                      </picture>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <a   class="postcard" (click)="searchByName('Hà Nội')">
+                    <div class="postcard-inner">
+                      <div class="postcard-title">Hà Nội</div>
+                      <picture>
+                        <img src="assets/images/hnn.jpg" class="postcard-img" alt="Hà Nội">
+                      </picture>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <a  class="postcard" (click)="searchByName('Vũng Tàu')">
+                    <div class="postcard-inner">
+                      <div class="postcard-title">Vũng Tàu</div>
+                      <picture>
+                        <img src="assets/images/vt.jpg" class="postcard-img" alt="Vũng Tàu">
+                      </picture>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div class="destinations-container">-->
+<!--    <h2>Khám phá Việt Nam</h2>-->
+<!--    <p>Các điểm đến phổ biến này có nhiều điều chờ đón bạn</p>-->
+<!--    <ngb-carousel>-->
+<!--      <ng-template ngbSlide *ngFor="let destination of destinations">-->
+<!--        <div class="destination-card">-->
+<!--          <img [src]="destination.image" alt="{{destination.name}}">-->
+<!--          <div class="destination-info">-->
+<!--            <h3>{{destination.name}}</h3>-->
+<!--            <p>{{destination.places}} chỗ nghỉ</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </ngb-carousel>-->
+<!--  </div>-->
+
+
+
+</section>

@@ -1,0 +1,242 @@
+<section id="content">
+  <div class="container mt-5" *ngIf="hotel">
+    <div class="row">
+      <div *ngFor="let image of hotel.images">
+        <img [src]="image.url" alt="Hotel Image" class="img-fluid">
+      </div>
+      <div class="col-xl-8 col-lg-7 pt-6">
+        <h3 class="text-dark h1 fw-semibold ls-0 mb-4">{{ hotel.name }}</h3>
+        <h5 class="color fw-normal mb-2 "><i
+          class="bi-geo-alt"></i> {{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</h5>
+        <div class="line line-sm"></div>
+        <div class="row">
+<!--          <h3 class="mb-3 mt-5 pt-4"> Tiện nghi</h3>-->
+<!--          <div class="col-md-3 col-12 mt-5 pt-4" *ngFor="let amenitie of amenities">-->
+<!--            <div class="features feature-primary text-center">-->
+<!--              <div class="image position-relative d-inline-block">-->
+<!--                <i class=" {{amenitie.icon}} h2 text-primary"></i>-->
+<!--              </div>-->
+<!--              <div class="content mt-4">-->
+<!--                <h5>{{ amenitie.name }}</h5>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash;end col&ndash;&gt;-->
+        </div>
+        <div class="line"></div>
+        <div class=" col-xl-12 col-lg-12 mt-5 pt-4">
+          <div>
+            <p class="mb-4">{{ hotel.description }}</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-4 col-lg-5 pt-5 mt-5 mt-md-0 pt-6">
+        <div class="card rounded-top bg-white border-0 w-100 shadow p-3">
+          <div class="card-body">
+            <h3 class="mb-0 h6"></h3>
+            <div class="line my-3"></div>
+            <form (ngSubmit)="filterTable()" id="form-availability" name="form-availability" method="post"
+                  class="form-availability mb-0">
+              <div class="travel-date-group">
+                <div class="row">
+                  <div class="col-6 col-md-12 col-lg-6 form-group">
+                    <label class="form-label"> Ngày nhận phòng: </label>
+                    <input name="checkin" type="date" [(ngModel)]="checkInDate" [min]="minCheckInDate"
+                           class="form-control" placeholder="Select date:" (change)="onCheckInChange()">
+                  </div>
+                  <div class="col-6 col-md-12 col-lg-6 form-group">
+                    <label class="form-label"> Ngày trả phòng: </label>
+                    <input type="date" class="form-control end" [(ngModel)]="checkOutDate" name="checkOutDate"
+                           placeholder="Select date :" [min]="minCheckOutDate" (change)="onCheckOutChange()">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="mb-3 mb-lg-0">
+                  <label class="form-label">Nơi bạn muốn đến : </label>
+                  <input type="text" id="address" required class="form-control" [(ngModel)]="destination"
+                         name="destination" placeholder="Nơi bạn muốn đến :">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>số người / phòng<small class="text-danger">*</small></label>
+                <div class="form-control dropdown-toggle" (click)="toggleDropdown()">
+                  {{ adults }}  Người lớn, {{ sizeRoom }} Số phòng
+                </div>
+              </div>
+              <div class="dropdown-menu p-2 custom-width" [class.show]="dropdownOpen">
+                <div class="row p-2">
+                  <div class="col-md-12 d-flex align-items-center mb-2">
+                    <label class="mr-2">Số Phòng</label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark Rooms" (click)="decrement('sizeRoom')">-
+                      </button>
+                      <input type="number" [(ngModel)]="sizeRoom" class="count latest mx-1" name="Rooms" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark Rooms" (click)="increment('sizeRoom')">+
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 d-flex align-items-center">
+                    <label class="mr-2">Số Người </label>
+                    <div class="ml-auto input-group qty justify-content-end">
+                      <button type="button" class="btn-circle minus bg-dark" (click)="decrement('adults')">-</button>
+                      <input type="number" [(ngModel)]="adults" class="count latest mx-1" name="Adults" value="1"
+                             readonly>
+                      <button type="button" class="btn-circle plus bg-dark" (click)="increment('adults')">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-dark w-100 mb-3">Thay đổi sự lựa chọn</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="line"></div>
+
+      <div class="room-details col-xl-12 col-lg-12 mt-5 custom-room-details">
+        <h3 class="mb-3">Danh sách phòng</h3>
+        <table class="table table-bordered">
+          <thead>
+          <tr class="table-active">
+            <th scope="col">Loại căn hộ</th>
+            <th scope="col">Số lượng khách</th>
+            <th scope="col">Giá cho 1 đêm</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Chọn phòng</th>
+            <th scope="col"> Tổng tiền</th>
+
+          </tr>
+          </thead>
+          <tbody *ngFor="let room of rooms">
+          <tr>
+            <td>
+              <span>{{ getRoomTypeName(room) }}</span>
+              <ul>
+                <ng-container *ngFor="let amenitie of getRoomAmenities(room)">
+                  <li><i class="{{ amenitie.icon }}"></i> {{ amenitie.name }}</li>
+                </ng-container>
+              </ul>
+              <span></span>
+              <!--        <span>{{ getRoomAmenities(room.id) }}</span>-->
+            </td>
+            <td>
+              <ng-container *ngIf="room.capacity === 1">
+                <i class="uil uil-user "></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 2">
+                <i class="uil uil-users-alt"></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 3">
+                <i class="uil uil-users-alt"></i>
+                <i class="uil uil-user"></i>
+              </ng-container>
+              <ng-container *ngIf="room.capacity === 4">
+                <i class="uil uil-users-alt"></i>
+                <i class="uil uil-users-alt"></i>
+              </ng-container>
+            </td>
+            <td>{{ room.price | currency:'VND ' }}</td>
+            <td>
+              <span>{{ room.view }}</span><br>
+              <span>Phòng có diện tích là: {{ room.size }} m<sup>2</sup></span>
+            </td>
+            <td>
+
+              <select (change)="updateTotalPrice(room.id, $event)">
+                <option [value]="count" *ngFor="let count of getCountsUpTo(room.roomNumber)">
+                  {{ count }} ( {{ room.price * count  | currency: 'VND ' }} )
+                </option>
+              </select>
+            </td>
+            <div>
+
+              <p *ngIf="room.roomNumber > 0">
+                {{ room.price * countroom | currency:'VND ' }}
+              </p>
+              <button *ngIf="room.roomNumber > 0"  class="btn btn-primary" (click)="bookRoom(room.id)">Tôi sẽ đặt</button>
+              <p *ngIf="room.roomNumber <=0"> Phòng này đã hết,vui lòng chọn ngày khác</p>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+        <div class="amenities">
+          <!-- Additional amenities section -->
+        </div>
+      </div>
+    </div>
+    <div class="line"></div>
+    <app-comment [hotelId]="hotelId"></app-comment>
+
+
+  </div>
+
+</section>
+<div class="container-fluid px-1 py-5 mx-auto">
+  <div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-9 col-md-10 col-12 text-center mb-5">
+      <div class="card">
+        <div class="cirle-img">
+          <img src="https://i.imgur.com/IRsUTtE.jpg" class="anhreview">
+          <div class="rating-on-img">
+            <h3 class="head-rate"> {{ averageRating | number: '1.1-1' }}</h3>
+            <h3 class="subhead-rate">trên tổng 5 sao</h3>
+          </div>
+        </div>
+        <div class="heading0 mb-3 text-center">
+          <h2>Đánh giá bởi người dùng</h2>
+        </div>
+        <div class="rating-bar0 justify-content-center">
+          <table class="text-left mx-auto">
+            <tr *ngFor="let rating of [5, 4, 3, 2, 1]">
+              <td class="rating-label">{{ rating }}</td>
+              <td class="rating-bar">
+                <div class="bar-container">
+                  <div class="bar-{{ rating }}" [style.width.%]="getRatingPercentage(rating)"></div>
+                </div>
+              </td>
+              <td>{{ getCommentCount(rating) }}</td>
+            </tr>
+          </table>
+        </div>
+
+
+
+
+
+        <div *ngIf="reviews.length > 0" class="review-title">
+          <h3>Đánh giá của khách hàng</h3>
+          <div *ngFor="let review of reviews" class="card blog-box border-0 mt-4">
+
+            <div class="mt-3">
+              <div class="rating">
+                <ng-container>
+                <span>{{ getUserName(review.userID) }}</span>
+                - <span>{{ getTimeAgo(review.createdAt) }}</span>
+                </ng-container>
+                <div class="stars">
+                  <ng-container *ngFor="let star of getStarArray(review.rating)">
+                    <span class="uil uil-star" [class.checked]="true"></span>
+                  </ng-container>
+                </div>
+              </div>
+              <a class="titles " style="text-align: left ">
+                <h6 class="fs-20">{{ review.title }}</h6>
+              </a>
+              <div class="mt-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="reviews.length === 0">
+          <p>Chưa có đánh giá nào cho khách sạn này.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

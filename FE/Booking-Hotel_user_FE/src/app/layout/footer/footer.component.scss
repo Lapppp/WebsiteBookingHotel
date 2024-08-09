@@ -1,0 +1,79 @@
+.footer-bg {
+  background-color: #CFCFCF;
+  padding: 40px 0;
+}
+
+.footer-link {
+  color: #000;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.social-list .list-inline-item {
+  margin-right: 15px;
+}
+
+.social-list .footer-link i {
+  font-size: 24px;
+  color: #000;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -3%;
+}
+
+.list-inline-item {
+  padding: 0 10px;
+  margin: 0;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.footer-bottom {
+  background-color: #f4f4f4;
+  padding: 20px 0;
+
+}
+.form-bottom-end{
+  margin-right: -20%;
+}
+
+//
+//.footer-bottom {
+//  background-color: #f4f4f4; /* Màu nền của phần footer */
+//  padding: 20px 0; /* Khoảng cách lề trên và dưới */
+//}
+//
+.footer-link {
+  color: #333; /* Màu văn bản của các liên kết */
+  text-decoration: none; /* Loại bỏ gạch chân của liên kết */
+}
+//
+.footer-link:hover {
+  text-decoration: underline; /* Hiển thị gạch chân khi di chuột qua liên kết */
+}

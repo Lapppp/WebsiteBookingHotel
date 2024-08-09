@@ -1,0 +1,79 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+
+  .register-image {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -5%;
+
+    img {
+      max-width: 50%;
+      max-height: 70%;
+    }
+  }
+
+  .register-content {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin-right: 10%;
+  }
+
+  .register-form {
+    width: 70%; // Thay đổi chiều rộng của form
+    margin: 0 auto;
+    h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px; // Thay đổi kích thước padding cho input nhỏ lại
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+
+    .text-center {
+      text-align: center;
+      margin-top: 20px;
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

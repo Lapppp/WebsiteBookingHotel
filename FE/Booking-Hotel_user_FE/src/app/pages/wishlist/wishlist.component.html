@@ -1,0 +1,84 @@
+<!--<div *ngIf="currentUser">-->
+<!--  <h2>Danh sách yêu thích</h2>-->
+<!--  <div *ngFor="let hotel of hotels" class="hotel-card">-->
+<!--    <h3>{{ hotel.name }}</h3>-->
+<!--    <p><strong>Địa chỉ:</strong> {{ hotel.address }}</p>-->
+<!--    <p><strong>Thành phố:</strong> {{ hotel.city }}</p>-->
+<!--    <p><strong>Mô tả:</strong> {{ hotel.description }}</p>-->
+<!--    <button (click)="deleteFromWishlist(hotel.id)" class="btn btn-secondary btn-wishlist-done">-->
+<!--      <i class="uil uil-bookmark wishlist-done"></i> <span style="color:black">Xoá khỏi danh sách yêu thích</span>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div *ngIf="!currentUser">-->
+<!--  <p>Bạn cần đăng nhập để xem danh sách yêu thích.</p>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--  <div class="col-xl-12 col-lg-5 pt-6">-->
+<!--    <div class="card-body wishlist " *ngFor="let hotel of hotels">-->
+<!--      <div class=" my-3">-->
+<!--        <div class="col-lg-2" *ngFor="let image of hotel.images">-->
+<!--          <img class="box-img shadow-left" [src]="image.url" alt="Image">-->
+
+<!--        <h5>{{ hotel.name }}</h5>-->
+<!--        <span class="color fw-normal mb-2 "><i-->
+<!--          class="bi-geo-alt"></i> {{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="entry col-12">-->
+<!--  <div class="grid-inner row" *ngFor="let hotel of hotels">-->
+<!--    <div class="col-lg-4" *ngFor="let image of hotel.images">-->
+<!--      <img class="box-img shadow-left" [src]="image.url" alt="Image">-->
+
+
+
+<!--    </div>-->
+
+<!--    <div class="col-lg col-md-8 mt-5 mt-lg-0">-->
+<!--      <div class="entry-title title-sm">-->
+<!--        <h2><a routerLink="/room/{{hotel.id}}">{{ hotel.name }}</a></h2>-->
+<!--        <h6>{{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</h6>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<table class="table align-middle mb-0 bg-white" >
+  <thead class="bg-light">
+  <tr  class="table-active table table-bordered">
+    <th>Thông tin khách sạn</th>
+    <th>Title</th>
+
+  </tr>
+  </thead>
+  <tbody *ngFor="let hotel of hotels">
+  <tr>
+    <td>
+      <div class="d-flex align-items-center">
+        <div *ngFor="let image of hotel.images">
+          <a routerLink="/room/{{hotel.id}}"> <img [src]="image.url" alt="Image" style="width: 400px; height: 200px"></a>
+        </div>
+
+        <div class="ms-3">
+          <h2><a routerLink="/room/{{hotel.id}}">{{hotel.name}}</a></h2>
+          <p class="text-muted mb-0 uil uil-map-marker">{{ hotel.address }} {{ hotel.city }} {{ hotel.country }}</p>
+        </div>
+      </div>
+    </td>
+    <td>
+      <button (click)="deleteFromWishlist(hotel.id)" class="btn btn btn-danger "> Xoá khỏi danh sách yêu thích
+      </button>
+
+    </td>
+
+
+
+  </tbody>
+</table>

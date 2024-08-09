@@ -1,0 +1,183 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Toàn bộ đặt phòng
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-money-bills"> </i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Đặt phòng </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Toàn bộ đặt phòng
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="dataTables_wrapper py-4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_length" id="datatable_length">
+                                        <label>
+                                            Hiển thị
+                                            <select name="datatable_length" aria-controls="datatable"
+                                                class="form-control form-control-sm" (change)="entriesChange($event)">
+                                                <option value="10" [selected]="entries == 10">10</option>
+                                                <option value="25" [selected]="entries == 25">25</option>
+                                                <option value="50" [selected]="entries == 50">50</option>
+                                                <option value="-1" [selected]="entries == -1">Tất cả</option>
+                                            </select>
+                                            bản ghi
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="datatable_filter" class="dataTables_filter">
+                                        <label>
+                                            <input type="search" class="form-control form-control-sm"
+                                                placeholder="Tìm kiếm bản ghi" aria-controls="datatable"
+                                                (keyup)="filterTable($event)" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'"
+                                [headerHeight]="'auto'" [footerHeight]="'auto'" [rowHeight]="'auto'"
+                                [limit]="entries != -1 ? entries : undefined" [scrollbarH]="true" [rows]="temp"
+                                (activate)="onActivate($event)">
+                                <ngx-datatable-column name="STT" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.id }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Tên người dùng" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.userName }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Email" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.email }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Trạng thái" [sortable]="true">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        {{ row.status }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Lịch sử đặt phòng">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        <ul *ngIf="row.bookingHistories && row.bookingHistories.length">
+                                            <li *ngFor="let history of row.bookingHistories">
+                                                {{ history.status }}
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Hóa đơn">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        <ul *ngIf="row.invoices && row.invoices.length">
+                                            <li *ngFor="let invoice of row.invoices">
+                                                {{ invoice.date | date }} - {{ invoice.totalAmount | currency }}
+                                                <ul *ngIf="invoice.invoiceDetails && invoice.invoiceDetails.length">
+                                                    <li *ngFor="let detail of invoice.invoiceDetails">
+                                                        {{ detail.description }} - {{ detail.amount | currency }}
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Chức năng">
+                                    <ng-template ngx-datatable-cell-template let-row="row">
+                                        <button class="btn btn-sm btn-warning"
+                                            (click)="editBooking(row.id)">Sửa</button>
+                                        <button class="btn btn-sm btn-info" (click)="viewDetails(row)">Chi tiết</button>
+                                        <button *ngIf="row.status !== 'Đã huỷ'" class="btn btn-sm btn-danger"
+                                            (click)="confirmDeleteBooking(row.id)">Xóa</button>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" #detailModal id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="detailModalLabel">Chi tiết đặt phòng</h2>
+                <button type="button" class="close" (click)="closeModal()" aria-label="Đóng">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <h3>Thông tin đặt phòng</h3>
+                <p><strong>Ngày nhận phòng:</strong> {{ selectedRow?.checkInDate }}</p>
+                <p><strong>Ngày trả phòng:</strong> {{ selectedRow?.checkOutDate }}</p>
+                <h3>Lịch sử đặt phòng</h3>
+                <ul>
+                    <li *ngFor="let history of selectedRow?.bookingHistories">
+                        <p class="enlarge">{{ history.status }}</p>
+                    </li>
+                </ul>
+                <h3>Hóa đơn</h3>
+                <div *ngFor="let invoice of selectedRow?.invoices">
+                    <p><strong>Mã:</strong> {{ invoice.id }}</p>
+                    <p><strong>Net:</strong> {{ invoice.net | currency }}</p>
+                    <p><strong>Ngày tạo:</strong> {{ invoice.date | date }}</p>
+                    <p><strong>Tổng tiền:</strong> {{ invoice.total | currency }}</p>
+                    <p><strong>Thuế:</strong> {{ invoice.tax | currency }}</p>
+                    <p><strong>Hạn thanh toán:</strong> {{ invoice.dueDate | date }}</p>
+                    <p><strong>Giảm giá:</strong> {{ invoice.discount | currency }}</p>
+                    <p><strong>Loại tiền tệ:</strong> {{ invoice.currency }}</p>
+                    <p><strong>Trạng thái:</strong> {{ invoice.status }}</p>
+                    <h3>Chi tiết hóa đơn</h3>
+                    <ul>
+                        <li *ngFor="let detail of invoice.invoiceDetails">
+                            <p><strong>Số:</strong> {{ detail.id }}</p>
+                            <p><strong>Đơn giá:</strong> {{ detail.unitPrice | currency }}</p>
+                            <p><strong>Ngày dịch vụ:</strong> {{ detail.serviceDate | date }}</p>
+                            <p><strong>Mô tả:</strong> {{ detail.description }}</p>
+                            <p><strong>Thành tiền:</strong> {{ detail.amount | currency }}</p>
+                            <p><strong>Số lượng:</strong> {{ detail.quantity }}</p>
+                            <p><strong>Giảm giá:</strong> {{ detail.discount | currency }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .enlarge {
+        font-size: 16px;
+        /* Điều chỉnh kích cỡ tùy vào nhu cầu */
+    }
+</style>

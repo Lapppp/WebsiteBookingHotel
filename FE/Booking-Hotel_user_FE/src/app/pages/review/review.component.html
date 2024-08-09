@@ -1,0 +1,33 @@
+
+<div class="modal-overlay"></div>
+<div class="modal-container">
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  <div class="modal-title">Đánh giá trải nghiệm</div>
+  <div class="modal-body">Chúng tôi luôn lắng nghe đóng góp của bạn</div>
+
+  <div class="modal-body">
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+      <button type="button" class="star" *ngFor="let star of stars; let i = index" (click)="onStarClicked(i)">
+        <i class="uil uil-star" [ngClass]="{'filled': i < currentStarIndex}"></i>
+      </button>
+      <div data-mdb-input-init class="form-outline">
+        <textarea class="form-control" formControlName="title" id="textAreaExample" placeholder="Viết đánh giá"
+                  rows="4"></textarea>
+        <label class="form-label" for="textAreaExample">Chúc bạn có trải nghiệm tốt cho lần sau <3</label>
+        <div *ngIf="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched" class="text-danger">
+          Vui lòng nhập tiêu đề đánh giá.
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-3">
+        <button type="submit" class="btn btn-outline-success mt-2 me-2">Gửi đánh giá của bạn
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+

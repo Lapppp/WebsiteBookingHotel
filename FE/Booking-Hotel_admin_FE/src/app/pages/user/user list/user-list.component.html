@@ -1,0 +1,105 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6">
+          <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+            Danh sách Người dùng
+          </h6>
+          <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)"> <i class="fas fa-users"></i> </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)"> Người dùng </a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">
+                Danh sách Người dùng
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="dataTables_wrapper py-4">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="dataTables_length" id="datatable_length">
+                    <label>
+                      Hiển thị
+                      <select name="datatable_length" aria-controls="datatable" class="form-control form-control-sm"
+                        (change)="entriesChange($event)">
+                        <option value="10" [selected]="entries == 10">10</option>
+                        <option value="25" [selected]="entries == 25">25</option>
+                        <option value="50" [selected]="entries == 50">50</option>
+                        <option value="-1" [selected]="entries == -1">Tất cả</option>
+                      </select>
+                      bản ghi
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div id="datatable_filter" class="dataTables_filter">
+                    <label>
+                      <input type="search" class="form-control form-control-sm" placeholder="Tìm kiếm bản ghi"
+                        aria-controls="datatable" (keyup)="filterTable($event)" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined" [rows]="temp"
+                (activate)="onActivate($event)">
+                <ngx-datatable-column name="ID" [sortable]="true">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    {{ rowIndex + 1 }}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Tên" [sortable]="true">
+                  <ng-template ngx-datatable-cell-template let-row="row">
+                    {{ row.name }}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Tên đăng nhập" [sortable]="true">
+                  <ng-template ngx-datatable-cell-template let-row="row">
+                    {{ row.userName }}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email" [sortable]="true">
+                  <ng-template ngx-datatable-cell-template let-row="row">
+                    {{ row.email }}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Số điện thoại" [sortable]="true">
+                  <ng-template ngx-datatable-cell-template let-row="row">
+                    {{ row.phone }}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Ảnh" [sortable]="false">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div *ngIf="getUserImagesForDisplay(row.id.toString()).length > 0">
+                      <img *ngFor="let image of getUserImagesForDisplay(row.id.toString())" [src]="image.url"
+                        [alt]="row.userName" width="50" style="max-width: 50px; height: auto;">
+                    </div>
+                    <div *ngIf="getUserImagesForDisplay(row.id.toString()).length === 0">
+                      Không có ảnh
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Chức năng">
+                  <ng-template ngx-datatable-cell-template let-row="row">
+                    <button class="btn btn-sm btn-warning" (click)="editUser(row.id)">Sửa</button>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

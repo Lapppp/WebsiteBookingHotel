@@ -1,0 +1,210 @@
+.position-relative {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 10px;
+  margin: .125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.175);
+
+  &.show {
+    display: block;
+  }
+}
+.dropdown-menu {
+  padding: 10px; /* Adjust as needed */
+}
+
+.row.p-2 {
+  padding: 5px; /* Adjust as needed */
+}
+
+.mb-2 {
+  margin-bottom: 5px; /* Adjust as needed */
+}
+
+.mr-2 {
+  margin-right: 5px; /* Adjust as needed */
+}
+.input-group {
+  display: flex;
+  align-items: center;
+
+  .btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .form-control {
+    width: 3rem;
+    text-align: center;
+  }
+}
+.content-wrap {
+  background-color: #f9fafb;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.1),0 2px 6px 2px rgba(60,64,67,.15);
+  margin-top: 15px;
+  padding: 10px
+}
+
+.content-wrap .comment-form-content {
+  width: 100%
+}
+.qty .count {
+  color: #000;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 30px;
+  padding: 0 2px;min-width: 35px;
+  text-align: center;
+}
+.qty .plus {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font: 30px/1 Arial,sans-serif;
+  text-align: center;
+  border-radius: 50%;
+}
+.qty .minus {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font: 17px Arial,sans-serif;
+  text-align: center;
+  border-radius: 50%;
+  background-clip: padding-box;
+  line-height: 1.428571429;
+}
+div {
+  //text-align: center;
+}
+.minus:hover{
+  background-color: #717fe0 !important;
+}
+.plus:hover{
+  background-color: #717fe0 !important;
+}
+/*Prevent text selection*/
+span{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input:disabled{
+  background-color:white;
+}
+
+.latest{
+  border: 0;
+  width: 2%;
+
+
+}
+.input-group.qty {
+  width: 50%; /* Adjusts the width to 3/4 */
+}
+
+
+.input-group .count {
+  text-align: center;
+}
+.border-danger {
+  border: 1px solid red;
+}
+.position-relative {
+  position: relative;
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
+
+.wishlist-button i {
+  font-size: 1.2rem;
+  color: black;
+}
+
+.wishlist-button:hover {
+  background-color: rgb(142, 214, 79);
+}
+.btn-wishlist-done:hover {
+  background-color: rgb(149, 14, 14);
+}
+
+.btn-wishlist-done {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
+.wishlist-done {
+  //color: #151515;
+  //background-color: rgb(214, 191, 47);
+  color: red;
+  background: none;
+
+}
+.uil-star {
+  font-size: 24px; /* Adjust size as needed */
+  color: gray; /* Default star color */
+}
+
+.uil-star.checked {
+  color: gold; /* Color for checked stars */
+}
+
+.uil-star-half::before {
+  content: "\eaa2"; /* Unicode for half star icon */
+  color: gold; /* Color for half stars */
+}

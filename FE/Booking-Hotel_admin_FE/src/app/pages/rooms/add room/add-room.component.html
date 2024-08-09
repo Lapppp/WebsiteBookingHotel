@@ -1,0 +1,268 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">Thêm Phòng</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-door-closed"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Phòng</a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">Thêm Phòng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="addRoom" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label class="form-control-label" for="hotels">Khách sạn:</label>
+                            <select id="hotels" class="form-control" formControlName="hotelID"
+                                (change)="onSelectHotel($event)">
+                                <option value="" disabled>Chọn một khách sạn</option>
+                                <option *ngFor="let hotel of hotels" [value]="hotel.id">{{ hotel.name }}</option>
+                            </select>
+                            <div *ngIf="addRoom.get('hotelID').invalid && addRoom.get('hotelID').touched"
+                                class="text-danger mt-2">
+                                Bạn phải chọn một khách sạn.
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Form to Add Amenity -->
+                    <form [formGroup]="addAmenity" (ngSubmit)="onAddAmenity()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">Tên</label>
+                                    <input type="text" class="form-control" id="name" formControlName="name"
+                                        placeholder="Tên" required />
+                                    <div *ngIf="addAmenity.get('name').invalid && addAmenity.get('name').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập tên tiện ích.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="icon">Biểu tượng</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="icon" formControlName="icon"
+                                            placeholder="Biểu tượng" required readonly />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
+                                                Chọn Biểu tượng
+                                            </button>
+                                            <div class="dropdown-menu" *ngIf="isDropdownOpen"
+                                                aria-labelledby="iconPickerToggle">
+                                                <a class="dropdown-item" *ngFor="let icon of icons"
+                                                    (click)="selectIcon(icon)">
+                                                    <i [class]="icon"></i> {{ getIconName(icon) }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="addAmenity.get('icon').invalid && addAmenity.get('icon').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn một biểu tượng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="category">Danh mục</label>
+                                    <select class="form-control" id="category" formControlName="category" required>
+                                        <option value="" disabled selected>Chọn một danh mục</option>
+                                        <option value="Wi-Fi">Wi-Fi</option>
+                                        <option value="Bãi đậu xe">Bãi đậu xe</option>
+                                        <option value="Hồ bơi">Hồ bơi</option>
+                                        <option value="Phòng gym">Phòng gym</option>
+                                        <option value="Nhà hàng">Nhà hàng</option>
+                                        <option value="Dịch vụ phòng">Dịch vụ phòng</option>
+                                        <option value="Spa và chăm sóc sức khỏe">Spa và chăm sóc sức khỏe</option>
+                                        <option value="Phòng họp và hội nghị">Phòng họp và hội nghị</option>
+                                        <option value="Quầy bar">Quầy bar</option>
+                                        <option value="Dịch vụ giặt là">Dịch vụ giặt là</option>
+                                        <option value="Đưa đón sân bay">Đưa đón sân bay</option>
+                                        <option value="Khu vui chơi trẻ em">Khu vui chơi trẻ em</option>
+                                        <option value="Dịch vụ thuê xe">Dịch vụ thuê xe</option>
+                                        <option value="Bữa sáng miễn phí">Bữa sáng miễn phí</option>
+                                        <option value="Tiếp tân 24/7">Tiếp tân 24/7</option>
+                                        <option value="Phòng không hút thuốc">Phòng không hút thuốc</option>
+                                        <option value="Tiện nghi cho người khuyết tật">Tiện nghi cho người khuyết tật</option>
+                                        <option value="Cho phép thú cưng">Cho phép thú cưng</option>
+                                        <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                        <option value="ATM trong khách sạn">ATM trong khách sạn</option>
+                                    </select>
+                                    <div *ngIf="addAmenity.get('category').invalid && addAmenity.get('category').touched" class="text-danger">
+                                        Bạn phải chọn một danh mục tiện ích.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Mô tả" />
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm Tiện ích</button>
+                    </form>
+                    <hr />
+                    <!-- Form to Add Room Type -->
+                    <form [formGroup]="addRoomType" (ngSubmit)="onAddRoomType()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">Tên</label>
+                                    <input type="text" class="form-control" id="name" formControlName="name"
+                                        placeholder="Tên" required />
+                                    <div *ngIf="addRoomType.get('name').invalid && addRoomType.get('name').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập tên loại phòng.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm Loại Phòng</button>
+                    </form>
+                    <hr />
+                    <!-- Form to Add Room -->
+                    <form [formGroup]="addRoom" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="roomNumber">Số Phòng</label>
+                                    <input type="text" class="form-control" id="roomNumber" formControlName="roomNumber"
+                                        placeholder="Nhập số phòng" required />
+                                    <div *ngIf="addRoom.get('roomNumber').invalid && addRoom.get('roomNumber').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập số phòng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Nhập mô tả phòng" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="price">Giá</label>
+                                    <input type="number" class="form-control" id="price" formControlName="price"
+                                        placeholder="Nhập giá phòng" required />
+                                    <div *ngIf="addRoom.get('price').invalid && addRoom.get('price').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập giá.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="capacity">Sức chứa</label>
+                                    <input type="number" class="form-control" id="capacity" formControlName="capacity"
+                                        placeholder="Nhập sức chứa" required />
+                                    <div *ngIf="addRoom.get('capacity').invalid && addRoom.get('capacity').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập sức chứa.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="floor">Tầng</label>
+                                    <input type="number" class="form-control" id="floor" formControlName="floor"
+                                        placeholder="Nhập số tầng" required />
+                                    <div *ngIf="addRoom.get('floor').invalid && addRoom.get('floor').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập số tầng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="size">Kích thước</label>
+                                    <input type="number" class="form-control" id="size" formControlName="size"
+                                        placeholder="Nhập kích thước phòng" required />
+                                    <div *ngIf="addRoom.get('size').invalid && addRoom.get('size').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập kích thước.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="view">Quang cảnh</label>
+                                    <input type="text" class="form-control" id="view" formControlName="view"
+                                        placeholder="Nhập mô tả quang cảnh" required />
+                                    <div *ngIf="addRoom.get('view').invalid && addRoom.get('view').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập mô tả quang cảnh.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="status">Trạng thái</label>
+                                    <select class="form-control" id="status" formControlName="status" required>
+                                        <option value="Active">Hoạt động</option>
+                                        <option value="Inactive">Không hoạt động</option>
+                                    </select>
+                                    <div *ngIf="addRoom.get('status').invalid && addRoom.get('status').touched" class="text-danger">
+                                        Bạn phải chọn một trạng thái.
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="amenities">Tiện ích</label>
+                                    <select multiple class="form-control" id="amenities" formControlName="amenities"
+                                        (change)="onAmenitiesChange($event)">
+                                        <option *ngFor="let amenity of amenities" [value]="amenity.id">{{ amenity.name
+                                            }}</option>
+                                    </select>
+                                    <div *ngIf="addRoom.get('amenities').invalid && addRoom.get('amenities').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn ít nhất một tiện ích.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="roomTypes">Loại Phòng</label>
+                                    <select multiple class="form-control" id="roomTypes" formControlName="roomTypes"
+                                        (change)="onRoomTypesChange($event)">
+                                        <option *ngFor="let roomType of roomTypes" [value]="roomType.id">{{
+                                            roomType.name }}</option>
+                                    </select>
+                                    <div *ngIf="addRoom.get('roomTypes').invalid && addRoom.get('roomTypes').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn ít nhất một loại phòng.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <button class="btn btn-primary" type="submit" [disabled]="!addRoom.get('hotelID').value">Thêm</button>
+                        <button class="btn btn-secondary" type="button" (click)="resetForm()">Đặt lại</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

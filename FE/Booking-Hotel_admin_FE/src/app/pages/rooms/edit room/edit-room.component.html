@@ -1,0 +1,153 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Chỉnh Sửa Phòng
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-door-closed"> </i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Phòng </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Chỉnh Sửa Phòng
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="editRoom" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="roomNumber">Số Phòng</label>
+                                    <input type="text" class="form-control" id="roomNumber" formControlName="roomNumber"
+                                        placeholder="Số phòng" required />
+                                    <div *ngIf="editRoom.get('roomNumber').invalid && editRoom.get('roomNumber').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập số phòng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô Tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Mô tả" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="price">Giá</label>
+                                    <input type="number" class="form-control" id="price" formControlName="price"
+                                        placeholder="Giá" required />
+                                    <div *ngIf="editRoom.get('price').invalid && editRoom.get('price').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập giá.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="capacity">Sức Chứa</label>
+                                    <input type="number" class="form-control" id="capacity" formControlName="capacity"
+                                        placeholder="Sức chứa" required />
+                                    <div *ngIf="editRoom.get('capacity').invalid && editRoom.get('capacity').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập sức chứa.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="floor">Tầng</label>
+                                    <input type="number" class="form-control" id="floor" formControlName="floor"
+                                        placeholder="Tầng" required />
+                                    <div *ngIf="editRoom.get('floor').invalid && editRoom.get('floor').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập số tầng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="size">Diện Tích</label>
+                                    <input type="number" class="form-control" id="size" formControlName="size"
+                                        placeholder="Diện tích" required />
+                                    <div *ngIf="editRoom.get('size').invalid && editRoom.get('size').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập diện tích.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="view">Hướng Nhìn</label>
+                                    <input type="text" class="form-control" id="view" formControlName="view"
+                                        placeholder="Hướng nhìn" required />
+                                    <div *ngIf="editRoom.get('view').invalid && editRoom.get('view').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập hướng nhìn.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="status">Trạng Thái</label>
+                                    <select class="form-control" id="status" formControlName="status" required>
+                                        <option value="Hoạt động">Hoạt động</option>
+                                        <option value="Ngưng hoạt động">Ngưng hoạt động</option>
+                                    </select>
+                                    <div *ngIf="editRoom.get('status').invalid && editRoom.get('status').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn trạng thái.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="hotelID">Khách Sạn</label>
+                                    <select class="form-control" id="hotelID" formControlName="hotelID" required>
+                                        <option *ngFor="let hotel of hotels" [value]="hotel.id">{{ hotel.name }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="editRoom.get('hotelID').invalid && editRoom.get('hotelID').touched"
+                                        class="text-danger">
+                                        Bạn phải chọn khách sạn.
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="amenities">Tiện Ích</label>
+                                    <select multiple class="form-control" id="amenities" formControlName="amenities">
+                                        <option *ngFor="let amenity of amenities" [value]="amenity.id">{{ amenity.name
+                                            }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="roomTypes">Loại Phòng</label>
+                                    <select multiple class="form-control" id="roomTypes" formControlName="roomTypes">
+                                        <option *ngFor="let roomType of roomTypes" [value]="roomType.id">{{
+                                            roomType.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Sửa</button>
+                        <button class="btn btn-secondary" type="button" (click)="onCancel()">Hủy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+.line {
+  border-bottom: 10px solid #5e5a5a; /* Creates a solid line at the bottom */
+  /* You can customize the line further with color, width, etc. */
+}
+//.comment-container {
+//  background-color: #f9fafb;
+//  border-radius: 10px;
+//  box-shadow: 0 1px 2px 0 rgba(60,64,67,.1),0 2px 6px 2px rgba(60,64,67,.15);
+//  margin-top: 15px;
+//  padding: 10px
+//}
+//
+//.comment-container .comment-form-content {
+//  width: 100%
+//}
+//
+//.qty {
+//  width: 70%; /* Adjusts the width to 3/4 */
+//}
+//.comment {
+//  margin-bottom: 10px;
+//  padding: 10px;
+//  border: 1px solid #ffffff;
+//  background-color: #f9f9f9;
+//}
+//
+//.comment p {
+//  margin: 0;
+//}
+//
+//.comment button {
+//  margin-top: 5px;
+//}
+//.gradient-custom { /* fallback for old browsers */
+//  background: #4facfe;
+//  /* Chrome 10-25,
+// Safari 5.1-6 */
+//  background: -webkit-linear-gradient(to bottom right, rgba(79, 172, 254,
+//    1), rgba(0, 242, 254, 1));
+//  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+,
+// Safari 7+ */
+//  background: linear-gradient(to bottom right, rgba(79, 172, 254, 1), rgba(0,
+//    242, 254, 1))
+//}
+.comments {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.comment {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.1),0 2px 6px 2px rgba(60,64,67,.15);
+  background-color: #f8f9fa;
+}
+
+.child-comments {
+  margin-left: 30px;
+
+}
+
+.reply-form {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #e9ecef;
+}
+
+.reply-form textarea {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.reply-form button {
+  border-radius: 5px;
+}
+.no-border {
+  border: none;
+  background: none; /* This will also remove the default button background */
+  padding: 0; /* Adjust padding if needed */
+  cursor: pointer; /* Optional: changes cursor to pointer on hover */
+}
+.title-comment {
+  font-size: 1.5rem;
+  margin-left: 30px;
+}

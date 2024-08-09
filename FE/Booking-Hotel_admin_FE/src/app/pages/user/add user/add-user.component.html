@@ -1,0 +1,76 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6">
+          <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+            Thêm Người Dùng
+          </h6>
+          <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-users"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Người Dùng</a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">Thêm người dùng</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="addUser" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="userName">Tên người dùng</label>
+                  <input type="text" class="form-control" id="userName" formControlName="userName"
+                    placeholder="Tên người dùng" required />
+                  <div *ngIf="addUser.get('userName').invalid && addUser.get('userName').touched" class="text-danger">
+                    Bạn không được bỏ trống tên người dùng.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="password">Mật khẩu</label>
+                  <input type="password" class="form-control" id="password" formControlName="password"
+                    placeholder="Mật khẩu" required />
+                  <div *ngIf="addUser.get('password').invalid && addUser.get('password').touched" class="text-danger">
+                    Bạn không được bỏ trống mật khẩu.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="email">Email</label>
+                  <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email"
+                    required />
+                  <div *ngIf="addUser.get('email').invalid && addUser.get('email').touched" class="text-danger">
+                    Bạn không được bỏ trống email.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="phone">Số điện thoại</label>
+                  <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Số điện thoại"
+                    required />
+                  <div *ngIf="addUser.get('phone').invalid && addUser.get('phone').touched" class="text-danger">
+                    Bạn không được bỏ trống số điện thoại.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Thêm</button>
+            <button class="btn btn-secondary" type="button" (click)="resetForm()">Làm mới</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

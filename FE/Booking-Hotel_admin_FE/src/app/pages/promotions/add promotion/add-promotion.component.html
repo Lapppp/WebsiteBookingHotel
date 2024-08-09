@@ -1,0 +1,114 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">Thêm Khuyến Mãi</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-percent"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Khuyến Mãi</a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">Thêm Khuyến Mãi</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="addPromotion" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label class="form-control-label" for="hotels">Khách sạn:</label>
+                            <select id="hotels" class="form-control" formControlName="hotelID"
+                                (change)="onSelectHotel($event)">
+                                <option value="" disabled selected>Chọn khách sạn</option>
+                                <option *ngFor="let hotel of hotels" [value]="hotel.id">{{ hotel.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="addPromotion.get('hotelID').invalid && addPromotion.get('hotelID').touched"
+                                class="text-danger mt-2">
+                                Bạn phải chọn một khách sạn.
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="title">Tiêu đề</label>
+                                    <input type="text" class="form-control" id="title" formControlName="title"
+                                        placeholder="Tiêu đề" [disabled]="!addPromotion.get('hotelID').value"
+                                        required />
+                                    <div *ngIf="addPromotion.get('title').invalid && addPromotion.get('title').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập tiêu đề.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="discount">Giảm giá</label>
+                                    <input type="number" class="form-control" id="discount" formControlName="discount"
+                                        placeholder="Giảm giá" [disabled]="!addPromotion.get('hotelID').value"
+                                        required />
+                                    <div *ngIf="addPromotion.get('discount').invalid && addPromotion.get('discount').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập giảm giá.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="couponCode">Mã giảm giá</label>
+                                    <input type="text" class="form-control" id="couponCode" formControlName="couponCode"
+                                        placeholder="Mã giảm giá" [disabled]="!addPromotion.get('hotelID').value"
+                                        required />
+                                    <div *ngIf="addPromotion.get('couponCode').invalid && addPromotion.get('couponCode').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập mã giảm giá.
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="description">Mô tả</label>
+                                    <input type="text" class="form-control" id="description"
+                                        formControlName="description" placeholder="Mô tả"
+                                        [disabled]="!addPromotion.get('hotelID').value" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="startDate">Ngày bắt đầu</label>
+                                    <input type="datetime-local" class="form-control" id="startDate"
+                                        formControlName="startDate" placeholder="Ngày bắt đầu"
+                                        [disabled]="!addPromotion.get('hotelID').value" required />
+                                    <div *ngIf="addPromotion.get('startDate').invalid && addPromotion.get('startDate').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập ngày bắt đầu.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="endDate">Ngày kết thúc</label>
+                                    <input type="datetime-local" class="form-control" id="endDate"
+                                        formControlName="endDate" placeholder="Ngày kết thúc"
+                                        [disabled]="!addPromotion.get('hotelID').value" required />
+                                    <div *ngIf="addPromotion.get('endDate').invalid && addPromotion.get('endDate').touched"
+                                        class="text-danger">
+                                        Bạn phải nhập ngày kết thúc.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit"
+                            [disabled]="!addPromotion.get('hotelID').value">Thêm</button>
+                        <button class="btn btn-secondary" type="button" (click)="resetForm()">Đặt lại</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

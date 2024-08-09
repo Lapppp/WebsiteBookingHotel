@@ -1,0 +1,201 @@
+<div class="header bg-danger pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Mặc định</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)"><i class="fas fa-home"></i></a>
+              </li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Thống kê</a></li>
+              <li aria-current="page" class="breadcrumb-item active">Mặc định</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Tổng số đặt phòng</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ totalBookings }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <i class="ni ni-active-40"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                <span class="text-nowrap">Kể từ tháng trước</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Người dùng hoạt động</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ activeUsers }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
+                    <i class="ni ni-trophy"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                <span class="text-nowrap">Kể từ tháng trước</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Tổng giá đã lập hóa đơn</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ totalInvoicedValue }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                <span class="text-nowrap">Kể từ tháng trước</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Điểm đánh giá trung bình</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ averageRating }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                    <i class="ni ni-chart-bar-32"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                <span class="text-nowrap">Kể từ tháng trước</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Tổng số đánh giá</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ totalReviews }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-chart-pie-35"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                <span class="text-nowrap">Kể từ tháng trước</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Charts Row -->
+
+      <!-- Biểu đồ Đơn hàng -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="m-0">Đơn hàng</h3>
+            </div>
+            <div class="card-body">
+              <canvas #chartOrders></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Biểu đồ Doanh thu -->
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Doanh thu</h3>
+            </div>
+            <div class="card-body">
+              <canvas #chartRevenue></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Biểu đồ Đánh giá -->
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Đánh giá</h3>
+            </div>
+            <div class="card-body">
+              <canvas #chartReviews></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  canvas {
+    width: 100% !important;
+    height: 400px !important;
+  }
+
+  .card-body {
+    position: relative;
+    max-height: 100%;
+  }
+
+  .card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 1rem;
+    }
+
+    canvas {
+      height: 300px !important;
+    }
+  }
+</style>

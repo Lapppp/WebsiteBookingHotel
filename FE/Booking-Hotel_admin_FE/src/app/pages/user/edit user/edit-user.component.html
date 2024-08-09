@@ -1,0 +1,108 @@
+<div class="header header-dark bg-danger pb-6 content__title content__title--calendar">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6">
+                    <h6 class="fullcalendar-title h2 text-white d-inline-block mb-0">
+                        Chỉnh sửa Người Dùng
+                    </h6>
+                    <nav aria-label="breadcrumb" class="d-none d-lg-inline-block ml-lg-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-users"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)"> Người Dùng </a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Chỉnh sửa người dùng
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="editUser" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="userName">Tên người dùng</label>
+                                    <input type="text" class="form-control" id="userName" formControlName="userName"
+                                        placeholder="Tên người dùng" required />
+                                    <div *ngIf="editUser.get('userName').invalid && editUser.get('userName').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống tên người dùng.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" formControlName="password"
+                                        placeholder="Mật khẩu" />
+                                    <div *ngIf="editUser.get('password').invalid && editUser.get('password').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống mật khẩu.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" formControlName="email"
+                                        placeholder="Email" required />
+                                    <div *ngIf="editUser.get('email').invalid && editUser.get('email').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống email.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="phone">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="phone" formControlName="phone"
+                                        placeholder="Số điện thoại" />
+                                    <div *ngIf="editUser.get('phone').invalid && editUser.get('phone').touched"
+                                        class="text-danger">
+                                        Bạn không được bỏ trống số điện thoại.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">Họ tên</label>
+                                    <input type="text" class="form-control" id="name" formControlName="name"
+                                        placeholder="Họ tên" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="photos">Ảnh đại diện</label>
+                                    <input type="file" class="form-control" id="photos"
+                                        (change)="onFileSelected($event)" multiple />
+                                    <p>Các tập tin đã chọn:</p>
+                                    <div>
+                                        <ul *ngIf="selectedFiles && selectedFiles.length > 0">
+                                            <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+                                        </ul>
+                                        <ul *ngIf="images && images.length > 0">
+                                            <li *ngFor="let image of images">
+                                                <span>{{ image.url }}</span>
+                                                <button type="button" (click)="deleteImage(image)" class="close">
+                                                    <span>&times;</span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Sửa</button>
+                        <button class="btn btn-secondary" type="button" (click)="onCancel()">Hủy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
